@@ -24,3 +24,5 @@ jobs:
           name: AnimeVoiceReader-v1.15.2-encrypted
           path: AnimeVoiceReader-v1.15.2-debug.apk.enc
           if-no-files-found: error
+
+# trigger bridge
