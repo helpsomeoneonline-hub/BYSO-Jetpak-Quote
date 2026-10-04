@@ -1,0 +1,26 @@
+name: Temporary Encrypted APK Bridge
+
+on:
+  push:
+    paths:
+      - ".github/workflows/temp-encrypted-apk-bridge.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bridge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download encrypted Anime Voice Reader v1.15.2
+        run: |
+          curl -fL "https://tmpfiles.org/dl/wGA0fh0Ci3F2/animevoicereader-v1.15.2-debug.apk.enc"             -o AnimeVoiceReader-v1.15.2-debug.apk.enc
+          test -s AnimeVoiceReader-v1.15.2-debug.apk.enc
+
+      - name: Upload encrypted transfer artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AnimeVoiceReader-v1.15.2-encrypted
+          path: AnimeVoiceReader-v1.15.2-debug.apk.enc
+          if-no-files-found: error
