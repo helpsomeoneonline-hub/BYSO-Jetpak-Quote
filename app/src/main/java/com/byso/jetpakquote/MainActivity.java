@@ -84,6 +84,24 @@ public class MainActivity extends Activity {
             Toast.makeText(context, "Quote copied", Toast.LENGTH_SHORT).show();
         }
 
+        // Device-local usage reports are shared only when the user explicitly taps Share.
+        @JavascriptInterface
+        public void shareUsageReport(String text) {
+            if (text == null || text.isEmpty() || text.length() > 180000) return;
+            if (!(context instanceof Activity)) return;
+            ((Activity) context).runOnUiThread(() -> {
+                try {
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.setType("text/plain");
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "BYSO JetPak usability report");
+                    intent.putExtra(Intent.EXTRA_TEXT, text);
+                    context.startActivity(Intent.createChooser(intent, "Share usage report"));
+                } catch (Exception ignored) {
+                    Toast.makeText(context, "Unable to share report", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
         @JavascriptInterface
         public void shareWhatsApp(String text) {
             try {
