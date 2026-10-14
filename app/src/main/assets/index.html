@@ -207,18 +207,15 @@ select{appearance:auto;padding-right:4px}
 }
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
-/* Always-reachable action: outside the scrolling cards, above system navigation. */
+/* Always-reachable Copy Summary, kept above the keyboard when it appears. */
 .action-dock{
-  position:fixed;z-index:40;left:50%;bottom:calc(9px + env(safe-area-inset-bottom));
+  position:fixed;z-index:40;left:50%;bottom:calc(9px + env(safe-area-inset-bottom) + var(--keyboard-gap, 0px));
   transform:translateX(-50%);width:min(740px,calc(100% - 20px));
   padding:8px;background:rgba(255,255,255,.96);border:1px solid #dce7f4;
   border-radius:19px;box-shadow:0 8px 26px rgba(23,47,105,.20)
 }
-.calculate-action{
-  min-height:52px;width:100%;border:0;border-radius:13px;
-  background:linear-gradient(105deg,#087fe9 0%,#6a35e6 100%);
-  color:#fff;font-size:16px;font-weight:900;letter-spacing:.1px
-}
+.action-dock .copy{margin:0;min-height:52px;height:52px;font-size:15px}
+.action-dock .copy:focus-visible{outline:3px solid #0a58c4;outline-offset:2px}
 #paymentSummary{scroll-margin-top:12px}
 .roi-per-dollar{
   color:#15784b;font-size:12.5px;font-weight:750;line-height:1.45;
@@ -340,10 +337,6 @@ select{appearance:auto;padding-right:4px}
     </div>
     <div class="profit"><span>↗&nbsp; Profit / ROI</span><span class="right" id="profit">—</span></div>
     <div class="roi-per-dollar" id="roiPerDollar" aria-live="polite">Enter cost and weight to see the return per TT$1 invested.</div>
-    <button class="copy dim" id="copyBtn" type="button" aria-disabled="true">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
-      Copy Summary
-    </button>
   </section>
 
   <section class="card" data-insight-section="fees">
@@ -411,7 +404,12 @@ select{appearance:auto;padding-right:4px}
     </div>
   </section>
 </div>
-<div class="action-dock"><button class="calculate-action" id="calculateBtn" type="button" aria-label="Calculate and view the payment estimate">Calculate · View Estimate</button></div>
+<div class="action-dock" role="region" aria-label="Quick copy action">
+  <button class="copy dim" id="copyBtn" type="button" aria-disabled="true">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
+      Copy Summary
+  </button>
+</div>
 <div class="toast" id="toast">Copied</div>
 
 <script>
@@ -496,7 +494,6 @@ select{appearance:auto;padding-right:4px}
     $("totalEstimate").textContent=r?ttd(r.total):dash;
     $("profit").textContent=r?(ttd(r.profit)+"  •  "+(r.roi===null?"—":r.roi.toFixed(1)+"% ROI")):dash;
     $("roiPerDollar").textContent=r && r.returnPerDollar!==null ? ("Every TT$1.00 invested returns TT$"+r.returnPerDollar.toFixed(2)+" (including the TT$1 invested).") : "Enter cost and weight to see the return per TT$1 invested.";
-    $("calculateBtn").textContent=r?("Calculate · "+ttd(r.total)):"Calculate · View Estimate";
     $("freightValue").textContent=r?feeText(r.freight):dash;
     $("handlingValue").textContent=r?feeText(r.handling):dash;
     $("serviceValue").textContent=r?feeText(r.service):dash;
@@ -542,6 +539,9 @@ select{appearance:auto;padding-right:4px}
   function copy(){
     const text=quoteText();
     if(!text){toast("Enter weight and online cost first");return;}
+    // Copy immediately from the keyboard-visible dock, then dismiss the keyboard.
+    const active=document.activeElement;
+    if(active && active.matches("input,select")) active.blur();
     if(window.AndroidBridge&&AndroidBridge.copyText){AndroidBridge.copyText(text);toast("Quote copied");return;}
     if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(()=>toast("Quote copied")).catch(()=>fallbackCopy(text));
     else fallbackCopy(text);
@@ -596,16 +596,22 @@ select{appearance:auto;padding-right:4px}
   document.querySelectorAll("[data-duty]").forEach(b=>b.addEventListener("click",()=>{state.dutyRate=Number(b.dataset.duty);render()}));
   $("ttdBtn").addEventListener("click",()=>{state.currencyView="TTD";render()});
   $("usdBtn").addEventListener("click",()=>{state.currencyView="USD";render()});
+  // On Android 15+ the WebView layout may be larger than the visible viewport.
+  // Track the occluded area only when necessary; when adjustResize already shrinks
+  // the window this value is zero, so the dock is not shifted twice.
+  function alignCopyWithKeyboard(){
+    const vp=window.visualViewport;
+    if(!vp) return;
+    const covered=Math.max(0,window.innerHeight-(vp.height+vp.offsetTop));
+    document.documentElement.style.setProperty("--keyboard-gap",Math.ceil(covered)+"px");
+  }
+  if(window.visualViewport){
+    window.visualViewport.addEventListener("resize",alignCopyWithKeyboard);
+    window.visualViewport.addEventListener("scroll",alignCopyWithKeyboard);
+  }
+  window.addEventListener("resize",alignCopyWithKeyboard);
+  alignCopyWithKeyboard();
   $("copyBtn").addEventListener("click",copy);
-  $("calculateBtn").addEventListener("click",()=>{
-    if(state.weightLbs===null || state.valueUSD===null){
-      const missing=state.weightLbs===null?"weight":"onlineCost";
-      toast("Enter weight and online cost to calculate");
-      $(missing).focus();return;
-    }
-    if(document.activeElement && document.activeElement.blur) document.activeElement.blur();
-    $("paymentSummary").scrollIntoView({behavior:"smooth",block:"start"});
-  });
   $("resetBtn").addEventListener("click",()=>{
     state.weightLbs=null;state.valueUSD=null;state.deliveryMode="3";state.customDays=null;state.limitedDeal=false;
     $("weight").value="";$("onlineCost").value="";$("customDays").value="";$("limitedDeal").checked=false;

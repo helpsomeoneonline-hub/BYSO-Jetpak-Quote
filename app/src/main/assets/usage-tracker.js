@@ -7,11 +7,11 @@
   const SAFE_CONTROLS=new Set([
     "weight","weightUnit","onlineCost","costUnit","streetRate","customDays","limitedDeal",
     "includeDuty","includeVat","includeOpt","usdBtn","ttdBtn","copyBtn","resetBtn",
-    "calculateBtn","usageToggle","usageShareBtn","usageCopyBtn","usageClearBtn"
+    "usageToggle","usageShareBtn","usageCopyBtn","usageClearBtn"
   ]);
   const $=id=>document.getElementById(id);
   let enabled=false, events=[], lastScrollY=window.scrollY, lastScrollTime=0, lastScrollDirection="";
-  let focusAt=0, focusTarget="", lastCalculateAt=Date.now();
+  let focusAt=0, focusTarget="", lastCopyAt=Date.now();
   try {
     enabled=localStorage.getItem(CONSENT)==="true";
     const saved=JSON.parse(localStorage.getItem(STORAGE)||"[]");
@@ -55,8 +55,8 @@
     const top=frequentlyUsed.slice(0,3).map(x=>x.target+" ("+x.count+")").join(", ");
     $("usageSummary").textContent=!count
       ? "No usage recorded yet."
-      : count+" recorded interactions · "+(counts.scroll||0)+" scrolls · "+(counts.calculate||0)+
-        " estimate views"+(top?" · Most-used controls: "+top:"");
+      : count+" recorded interactions · "+(counts.scroll||0)+" scrolls · "+(counts.copy_attempt||0)+
+        " copy attempts"+(top?" · Most-used controls: "+top:"");
     $("usageShareBtn").disabled=!count;
     $("usageCopyBtn").disabled=!count;
     $("usageClearBtn").disabled=!count;
@@ -106,10 +106,10 @@
     if(!item || item.closest("#usagePanel")) return;
     const target=safeTarget(item);
     record("tap",target);
-    if(target==="calculateBtn"){
-      const seconds=Math.min(3600,Math.round((Date.now()-lastCalculateAt)/1000));
-      record("calculate",target,{secondsSinceLastView:seconds});
-      lastCalculateAt=Date.now();
+    if(target==="copyBtn"){
+      const seconds=Math.min(3600,Math.round((Date.now()-lastCopyAt)/1000));
+      record("copy_attempt",target,{secondsSinceLastCopyTap:seconds});
+      lastCopyAt=Date.now();
     }
   },true);
   document.addEventListener("focusin",e=>{
