@@ -295,7 +295,7 @@ select{appearance:auto;padding-right:4px}
       </div>
       <div class="field rate">
         <label for="streetRate">Rate</label>
-        <div class="input-box"><select id="streetRate"><option value="8.5">8.5</option><option value="9" selected>9.0</option></select></div>
+        <div class="input-box"><select id="streetRate"><option value="8.5">8.5</option><option value="9" selected>9.0</option><option value="10">10.0</option></select></div>
       </div>
     </div>
 
@@ -451,7 +451,7 @@ select{appearance:auto;padding-right:4px}
     }catch(e){}
     if(!["lbs","kg"].includes(state.weightUnit)) state.weightUnit="lbs";
     if(!["USD","GBP"].includes(state.costUnit)) state.costUnit="USD";
-    if(![8.5,9].includes(Number(state.streetRate))) state.streetRate=9;
+    if(![8.5,9,10].includes(Number(state.streetRate))) state.streetRate=9;
     if(![20,30].includes(Number(state.dutyRate))) state.dutyRate=20;
     if(!["TTD","USD"].includes(state.currencyView)) state.currencyView="TTD";
   }
