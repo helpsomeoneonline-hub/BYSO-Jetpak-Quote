@@ -10,8 +10,8 @@ android {
         applicationId 'com.byso.jetpakquote'
         minSdk 24
         targetSdk 35
-        versionCode 11602
-        versionName '1.16.2'
+        versionCode 11603
+        versionName '1.16.3'
     }
 
     buildTypes {
