@@ -23,7 +23,20 @@ jobs:
           ANDROID_SIGNING_STORE_PASSWORD: ${{ secrets.ANDROID_SIGNING_STORE_PASSWORD }}
           ANDROID_SIGNING_CERT_SHA256: ${{ vars.ANDROID_SIGNING_CERT_SHA256 }}
         run: bash scripts/sign-github-apk.sh app/build/outputs/apk/debug/app-debug.apk
-      - uses: actions/upload-artifact@v4
+      - name: Upload upgrade-compatible APK (verified permanent certificate only)
+        if: success()
+        uses: actions/upload-artifact@v4
         with:
-          name: BYSO-JetPak-Quote-APK
+          name: BYSO-JetPak-Quote-APK-UPGRADE-COMPATIBLE
           path: app/build/outputs/apk/debug/app-debug.apk
+
+      # When no permanent signing key is configured, still make the compiled
+      # Android-debug-signed APK available for a fresh installation/testing.
+      # Keep the overall run failed so it is never mistaken for a signed upgrade.
+      - name: Upload debug APK fallback (NEW INSTALL ONLY, not upgrade-compatible)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: BYSO-JetPak-Quote-v1.16.3-DEBUG-NEW-INSTALL-ONLY
+          path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
