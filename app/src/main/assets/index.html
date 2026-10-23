@@ -133,6 +133,14 @@ select{appearance:auto;padding-right:4px}
 }
 .toggle input:checked+.track{background:linear-gradient(110deg,#198cf7,#7638ed)}
 .toggle input:checked+.track:after{transform:translateX(19px)}
+.toggle input:focus-visible+.track{outline:3px solid #115fc5;outline-offset:3px}
+.tax-shortcuts{margin-top:13px;padding:10px;border:1px solid #dce6f2;border-radius:13px;background:linear-gradient(145deg,#f8fbff,#f5f2ff)}
+.tax-shortcuts-head{font-size:12px;font-weight:900;color:#304460;margin-bottom:9px}
+.tax-shortcuts-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.tax-shortcut{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-width:0;min-height:68px;padding:7px 3px;border:1px solid #e0e8f3;border-radius:11px;background:#fff;color:#314661;text-align:center;font-size:11px;font-weight:850;cursor:pointer}
+.tax-shortcut .toggle{margin:0}
+.tax-duty-controls{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:9px;color:#475d7c;font-size:11.5px;font-weight:800}
+.tax-duty-controls .duty-pills button{min-height:36px;min-width:44px;font-size:11px}
 .payment-box{
   border:1px solid #dce5f0;background:linear-gradient(145deg,#fbfdff,#f6f3ff);
   border-radius:15px;padding:8px 13px 0
@@ -185,7 +193,7 @@ select{appearance:auto;padding-right:4px}
 .amount{
   min-width:83px;text-align:right;color:#142641;font-size:13.5px;font-weight:900
 }
-.tax-row{grid-template-columns:auto minmax(0,1fr) auto;gap:8px}
+.tax-row{grid-template-columns:minmax(0,1fr) auto;gap:8px}
 .tax-name{font-size:11.7px;font-weight:800;color:#314661;line-height:1.2}
 .tax-meta{display:flex;align-items:center;gap:6px;margin-top:4px}
 .fixed{
@@ -295,7 +303,22 @@ select{appearance:auto;padding-right:4px}
       </div>
       <div class="field rate">
         <label for="streetRate">Rate</label>
-        <div class="input-box"><select id="streetRate"><option value="8.5">8.5</option><option value="9" selected>9.0</option><option value="10">10.0</option></select></div>
+        <div class="input-box"><select id="streetRate"><option value="8.5">8.5</option><option value="9" selected>9.0</option><option value="10">10.0</option><option value="11.5">11.50</option></select></div>
+      </div>
+    </div>
+
+    <div class="tax-shortcuts" role="group" aria-labelledby="taxShortcutsTitle">
+      <div class="tax-shortcuts-head" id="taxShortcutsTitle">Taxes &amp; Duties — quick switches</div>
+      <div class="tax-shortcuts-grid">
+        <label class="tax-shortcut"><span>Duty</span><span class="toggle"><input id="includeDuty" type="checkbox" checked><span class="track"></span></span></label>
+        <label class="tax-shortcut"><span>VAT (12.5%)</span><span class="toggle"><input id="includeVat" type="checkbox" checked><span class="track"></span></span></label>
+        <label class="tax-shortcut"><span>Online Tax (7%)</span><span class="toggle"><input id="includeOpt" type="checkbox" checked><span class="track"></span></span></label>
+      </div>
+      <div class="tax-duty-controls">
+        <span>Customs duty rate</span>
+        <span class="duty-pills" role="group" aria-label="Customs duty rate">
+          <button type="button" data-duty="20" class="active">20%</button><button type="button" data-duty="30">30%</button>
+        </span>
       </div>
     </div>
 
@@ -362,20 +385,14 @@ select{appearance:auto;padding-right:4px}
       <div class="fee-group">
         <h3>Government Fees</h3>
         <div class="tax-row" id="dutyRow">
-          <label class="toggle"><input id="includeDuty" type="checkbox" checked><span class="track"></span></label>
-          <div>
-            <div class="tax-name">Customs Duties</div>
-            <div class="tax-meta"><span class="duty-pills"><button type="button" data-duty="20" class="active">20%</button><button type="button" data-duty="30">30%</button></span></div>
-          </div>
+          <div><div class="tax-name">Customs Duties</div><div class="tax-meta"><span class="fixed" id="dutyRateLabel">20% duty</span></div></div>
           <span class="amount" id="dutyValue">—</span>
         </div>
         <div class="tax-row" id="vatRow">
-          <label class="toggle"><input id="includeVat" type="checkbox" checked><span class="track"></span></label>
           <div><div class="tax-name">Customs V.A.T.</div><div class="tax-meta"><span class="fixed">12.5% fixed</span></div></div>
           <span class="amount" id="vatValue">—</span>
         </div>
         <div class="tax-row" id="optRow">
-          <label class="toggle"><input id="includeOpt" type="checkbox" checked><span class="track"></span></label>
           <div><div class="tax-name">Online Purchase Tax</div><div class="tax-meta"><span class="fixed">7% fixed</span></div></div>
           <span class="amount" id="optValue">—</span>
         </div>
@@ -451,7 +468,7 @@ select{appearance:auto;padding-right:4px}
     }catch(e){}
     if(!["lbs","kg"].includes(state.weightUnit)) state.weightUnit="lbs";
     if(!["USD","GBP"].includes(state.costUnit)) state.costUnit="USD";
-    if(![8.5,9,10].includes(Number(state.streetRate))) state.streetRate=9;
+    if(![8.5,9,10,11.5].includes(Number(state.streetRate))) state.streetRate=9;
     if(![20,30].includes(Number(state.dutyRate))) state.dutyRate=20;
     if(!["TTD","USD"].includes(state.currencyView)) state.currencyView="TTD";
   }
@@ -500,6 +517,7 @@ select{appearance:auto;padding-right:4px}
     $("dutyValue").textContent=r?feeText(r.duty):dash;
     $("vatValue").textContent=r?feeText(r.vat):dash;
     $("optValue").textContent=r?feeText(r.opt):dash;
+    $("dutyRateLabel").textContent=state.dutyRate+"% duty";
     $("dutyRow").classList.toggle("tax-off",!state.includeDuty);
     $("vatRow").classList.toggle("tax-off",!state.includeVat);
     $("optRow").classList.toggle("tax-off",!state.includeOpt);
