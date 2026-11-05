@@ -37,6 +37,6 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: BYSO-JetPak-Quote-v1.16.3-DEBUG-NEW-INSTALL-ONLY
+          name: BYSO-JetPak-Quote-v1.16.4-DEBUG-NEW-INSTALL-ONLY
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
