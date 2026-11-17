@@ -26,6 +26,7 @@ jobs:
         id: permanent_sign
         continue-on-error: true
         env:
+          ANDROID_SIGNING_BUNDLE: ${{ secrets.ANDROID_SIGNING_BUNDLE }}
           ANDROID_SIGNING_KEYSTORE_B64: ${{ secrets.ANDROID_SIGNING_KEYSTORE_B64 }}
           ANDROID_SIGNING_STORE_PASSWORD: ${{ secrets.ANDROID_SIGNING_STORE_PASSWORD }}
           ANDROID_SIGNING_CERT_SHA256: ${{ vars.ANDROID_SIGNING_CERT_SHA256 }}
@@ -41,15 +42,15 @@ jobs:
         run: |
           set -euo pipefail
           if [[ "$SIGN_OUTCOME" == "success" ]]; then
-            TAG="v1.16.4"
-            FILE="BYSO-JetPak-Quote-v1.16.4-UPGRADE-COMPATIBLE.apk"
-            TITLE="BYSO JetPak Quote v1.16.4"
+            TAG="v1.17.0"
+            FILE="BYSO-JetPak-Quote-v1.17.0-UPGRADE-COMPATIBLE.apk"
+            TITLE="BYSO JetPak Quote v1.17.0"
             NOTES="Signed with the repository's verified permanent certificate. Can update existing installations signed with that same certificate."
             PRERELEASE=()
           else
-            TAG="v1.16.4-debug"
-            FILE="BYSO-JetPak-Quote-v1.16.4-DEBUG-NEW-INSTALL-ONLY.apk"
-            TITLE="BYSO JetPak Quote v1.16.4 — new installation only"
+            TAG="v1.17.0-debug"
+            FILE="BYSO-JetPak-Quote-v1.17.0-DEBUG-NEW-INSTALL-ONLY.apk"
+            TITLE="BYSO JetPak Quote v1.17.0 — new installation only"
             NOTES="Direct Android APK download. The repository's permanent signing certificate was not available/verified. This disposable debug-signed build is for NEW INSTALLATIONS ONLY and generally cannot update an existing installation. Uninstalling an old app may erase its saved settings."
             PRERELEASE=(--prerelease)
             echo "::warning::Publishing debug-signed new-install APK only; cannot claim upgrade compatibility."
@@ -73,6 +74,6 @@ jobs:
         if: steps.compile.outcome == 'success' && steps.permanent_sign.outcome != 'success'
         uses: actions/upload-artifact@v4
         with:
-          name: BYSO-JetPak-Quote-v1.16.4-DEBUG-NEW-INSTALL-ONLY
+          name: BYSO-JetPak-Quote-v1.17.0-DEBUG-NEW-INSTALL-ONLY
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
