@@ -2,9 +2,22 @@
 # Re-sign the installable APK with one permanent, certificate-pinned key.
 set -euo pipefail
 if (( $# < 1 )); then echo "Usage: bash scripts/sign-github-apk.sh file.apk [more.apk ...]" >&2; exit 2; fi
+# Preferred: ONE secret ANDROID_SIGNING_BUNDLE = "v1.<password>.<sha256-fingerprint>.<keystore-base64>"
+# (Base64, hex and the alphanumeric password never contain '.', so '.' is a safe separator.)
+# The older three separate settings still work if the bundle is not set.
+if [[ -n "${ANDROID_SIGNING_BUNDLE:-}" ]]; then
+  bundle="$(printf '%s' "$ANDROID_SIGNING_BUNDLE" | tr -d '[:space:]')"
+  IFS='.' read -r b_ver b_pw b_fp b_ks <<< "$bundle"
+  if [[ "$b_ver" != "v1" || -z "$b_pw" || -z "$b_fp" || -z "$b_ks" ]]; then
+    echo "::error::ANDROID_SIGNING_BUNDLE is not in the expected v1.<password>.<fingerprint>.<keystore> format" >&2; exit 1
+  fi
+  echo "::add-mask::$b_pw"
+  export ANDROID_SIGNING_STORE_PASSWORD="$b_pw" ANDROID_SIGNING_CERT_SHA256="$b_fp" ANDROID_SIGNING_KEYSTORE_B64="$b_ks"
+  unset b_pw b_ks bundle
+fi
 for setting in ANDROID_SIGNING_KEYSTORE_B64 ANDROID_SIGNING_STORE_PASSWORD ANDROID_SIGNING_CERT_SHA256; do
   if [[ -z "${!setting:-}" ]]; then
-    echo "::error::Missing $setting. Configure GitHub Actions per docs/ANDROID_SIGNING.md. Refusing disposable-signed APK." >&2
+    echo "::error::Missing $setting. Add the ANDROID_SIGNING_BUNDLE secret (see docs/ANDROID_SIGNING.md). Refusing disposable-signed APK." >&2
     exit 1
   fi
 done

@@ -4,7 +4,15 @@ GitHub Actions runners are disposable. Their default debug keystore changes acro
 
 This workflow builds the existing Android variant, then re-signs the final APK with a retained app-specific keystore from encrypted GitHub Actions secrets. It checks the public SHA-256 fingerprint from an Actions variable before allowing the APK artifact to be published.
 
-## One-time setup in this repository
+## One-time setup in this repository (simplest: ONE secret)
+
+Add a single **secret** named `ANDROID_SIGNING_BUNDLE` whose value is one line:
+
+`v1.<keystore password>.<SHA-256 certificate fingerprint, hex, no colons>.<one-line Base64 of the .jks keystore>`
+
+The build splits it, verifies the keystore's certificate matches the fingerprint, and refuses to publish on any mismatch. The older three-setting method below still works if the bundle secret is absent.
+
+## Alternative: three separate settings
 
 Go to **Settings > Secrets and variables > Actions**.
 
