@@ -36,10 +36,16 @@ for apk in "$@"; do
   if [[ ! -s "$apk" ]]; then echo "::error::Missing APK: $apk" >&2; exit 1; fi
   cp "$apk" "$work/original.apk"
   "$signer" sign --ks "$work/app-signing.jks" --ks-key-alias app --ks-pass env:ANDROID_SIGNING_STORE_PASSWORD --key-pass env:ANDROID_SIGNING_STORE_PASSWORD --out "$work/signed.apk" "$work/original.apk"
-  fingerprint="$("$signer" verify --print-certs "$work/signed.apk" | sed -n 's/^Signer #1 certificate SHA-256 digest: //p' | head -n 1)"
-  actual="$(printf '%s' "$fingerprint" | tr -d ':[:space:]' | tr '[:lower:]' '[:upper:]')"
-  if [[ "$actual" != "$expected" ]]; then
+  certs="$("$signer" verify --print-certs "$work/signed.apk")"
+  # apksigner wording varies by build-tools version, e.g. "Signer #1 certificate SHA-256 digest:" or
+  # "Signer (minSdkVersion=24, maxSdkVersion=...) certificate SHA-256 digest:". Read every signer line.
+  mapfile -t found < <(printf '%s\n' "$certs" | sed -n 's/.*certificate SHA-256 digest: *//p' | tr -d ':[:space:]' | tr '[:lower:]' '[:upper:]' | sort -u)
+  actual="${found[0]:-}"
+  if (( ${#found[@]} != 1 )) || [[ "$actual" != "$expected" ]]; then
     echo "::error::APK certificate does not match the pinned fingerprint. Refusing publication: $apk" >&2
+    echo "Expected (public fingerprint): $expected" >&2
+    echo "Found signer certificate(s): ${found[*]:-none}" >&2
+    printf '%s\n' "$certs" | grep -i 'signer\|verif' >&2 || true
     exit 1
   fi
   "$signer" verify --verbose "$work/signed.apk"
