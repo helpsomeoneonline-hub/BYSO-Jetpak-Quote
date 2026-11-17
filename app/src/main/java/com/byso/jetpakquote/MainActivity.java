@@ -7,7 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.view.WindowInsetsController;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -82,6 +85,39 @@ public class MainActivity extends Activity {
             ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
             clipboard.setPrimaryClip(ClipData.newPlainText("BYSO Quote", text));
             Toast.makeText(context, "Quote copied", Toast.LENGTH_SHORT).show();
+        }
+
+
+        // Lets the selected colour theme match the status/navigation bars and their icon colour.
+        @JavascriptInterface
+        public void setSystemBars(String hex, boolean lightBackground) {
+            if (!(context instanceof Activity) || hex == null) return;
+            final Activity activity = (Activity) context;
+            activity.runOnUiThread(() -> {
+                try {
+                    int color = Color.parseColor(hex);
+                    activity.getWindow().setStatusBarColor(color);
+                    activity.getWindow().setNavigationBarColor(color);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                        WindowInsetsController c = activity.getWindow().getInsetsController();
+                        if (c != null) {
+                            int mask = WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+                                | WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS;
+                            c.setSystemBarsAppearance(lightBackground ? mask : 0, mask);
+                        }
+                    } else {
+                        View decor = activity.getWindow().getDecorView();
+                        int flags = decor.getSystemUiVisibility();
+                        flags = lightBackground ? (flags | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+                                                : (flags & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            flags = lightBackground ? (flags | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR)
+                                                    : (flags & ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+                        }
+                        decor.setSystemUiVisibility(flags);
+                    }
+                } catch (Exception ignored) { }
+            });
         }
 
         // Device-local usage reports are shared only when the user explicitly taps Share.

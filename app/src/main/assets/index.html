@@ -1,641 +1,949 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="original">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#1758d0">
+<meta name="theme-color" content="#0d1426">
 <title>BYSO JetPak Quote</title>
 <style>
-:root{
-  --ink:#101d38;--ink2:#304460;--muted:#70809b;--line:#dce7f4;--card:#ffffff;
-  --blue:#1688f4;--purple:#7138ef;--magenta:#c623d5;--green:#0f9b51;
-  --soft:#f5f8fd;--shadow:0 12px 30px rgba(29,66,120,.10);
+/* ================= THEMES ================= */
+:root,[data-theme="neon"]{
+  --name:"Midnight Neon";
+  --bg:radial-gradient(120% 50% at 0% 0%,rgba(47,155,255,.18),transparent 55%),radial-gradient(90% 45% at 100% 0%,rgba(208,58,216,.16),transparent 55%),linear-gradient(180deg,#131c33,#0b1121);
+  --txt:#e9eefb;--sub:#8d9bbb;--dim:#5d6a88;
+  --tray:#0a1020;--sh:rgba(0,0,0,.6);--edge:rgba(255,255,255,.05);--well:#060a16;
+  --k1:#27324f;--k2:#1c2541;--ktxt:#aeb9d6;--hl:rgba(255,255,255,.12);--lip:#070b16;
+  --brand:linear-gradient(120deg,#2f9bff,#7a4cf5 55%,#d03ad8);--blip:#2b1680;--bglow:rgba(122,76,245,.45);--btxt:#fff;
+  --bez1:#2a3556;--bez2:#141c33;--disp:radial-gradient(120% 90% at 85% -10%,rgba(122,76,245,.3),transparent 60%),radial-gradient(90% 80% at -10% 110%,rgba(47,155,255,.22),transparent 60%),#060b18;
+  --t1:#fff;--t2:#b9c8ff;--dsub:#8ea2cf;--dline:#02050c;--led:#2fd68a;
+  --d1:#1d2743;--d2:#172038;--dock:rgba(18,26,46,.92);--chrome:#0e1526;
 }
+[data-theme="original"]{
+  --name:"Original";--mute:1;
+  --bg:radial-gradient(circle at 8% 8%,rgba(36,135,247,.14),transparent 27%),radial-gradient(circle at 94% 14%,rgba(128,51,238,.12),transparent 28%),linear-gradient(180deg,#eef6ff 0%,#f8fbff 45%,#eef5ff 100%);
+  --txt:#101d38;--sub:#70809b;--dim:#a3b1c6;
+  --tray:#f1f5fb;--sh:rgba(29,66,120,.16);--edge:rgba(255,255,255,.9);--well:#fbfdff;
+  --k1:#ffffff;--k2:#f5f8fd;--ktxt:#4c5f7c;--hl:#fff;--lip:#cfdbea;
+  --brand:linear-gradient(105deg,#148cf2 0%,#6f39ed 53%,#c625ce 100%);--blip:#4b25a8;--bglow:rgba(78,60,224,.30);--btxt:#fff;
+  --bez1:#4160ec;--bez2:#2b3fb5;--disp:linear-gradient(118deg,#0879e7 0%,#4160ec 46%,#a625e4 100%);
+  --t1:#fff;--t2:#e8e0ff;--dsub:rgba(255,255,255,.82);--dline:rgba(10,20,80,.35);--led:#7dffb3;
+  --d1:#fff;--d2:#f8fbff;--dock:rgba(255,255,255,.96);--chrome:#eaf3ff;
+}
+[data-theme="sky"]{
+  --name:"Sky Breeze";--mute:1;
+  --bg:radial-gradient(circle at 8% 8%,rgba(6,182,212,.16),transparent 27%),radial-gradient(circle at 94% 14%,rgba(59,130,246,.14),transparent 28%),linear-gradient(180deg,#e9f8ff 0%,#fbfcff 45%,#e6f3ff 100%);
+  --txt:#101d38;--sub:#70809b;--dim:#a3b1c6;
+  --tray:#f1f4f9;--sh:rgba(29,66,120,.16);--edge:rgba(255,255,255,.9);--well:#fbfdff;
+  --k1:#ffffff;--k2:#f5f7fb;--ktxt:#4c5f7c;--hl:#fff;--lip:#d0d9e6;
+  --brand:linear-gradient(105deg,#06b6d4,#3b82f6 55%,#6366f1);--blip:#1e40af;--bglow:rgba(59,130,246,.3);--btxt:#fff;
+  --bez1:#3b82f6;--bez2:#1e4fbf;--disp:linear-gradient(118deg,#06a5d4 0%,#3b82f6 50%,#6366f1 100%);
+  --t1:#fff;--t2:#d6f4ff;--dsub:rgba(255,255,255,.82);--dline:rgba(10,20,60,.32);--led:#a7ffcf;
+  --d1:#fff;--d2:#f8fafd;--dock:rgba(255,255,255,.96);--chrome:#e6f5ff;
+}
+[data-theme="rose"]{
+  --name:"Rose Quartz";--mute:1;
+  --bg:radial-gradient(circle at 8% 8%,rgba(244,63,142,.13),transparent 27%),radial-gradient(circle at 94% 14%,rgba(124,58,237,.12),transparent 28%),linear-gradient(180deg,#fff0f7 0%,#fbfcff 45%,#f6f0ff 100%);
+  --txt:#101d38;--sub:#70809b;--dim:#a3b1c6;
+  --tray:#f1f4f9;--sh:rgba(29,66,120,.16);--edge:rgba(255,255,255,.9);--well:#fbfdff;
+  --k1:#ffffff;--k2:#f5f7fb;--ktxt:#4c5f7c;--hl:#fff;--lip:#d0d9e6;
+  --brand:linear-gradient(105deg,#f43f8e,#c026d3 55%,#7c3aed);--blip:#86198f;--bglow:rgba(192,38,211,.3);--btxt:#fff;
+  --bez1:#c026d3;--bez2:#7e1d9e;--disp:linear-gradient(118deg,#f43f8e 0%,#c026d3 50%,#7c3aed 100%);
+  --t1:#fff;--t2:#ffe0f2;--dsub:rgba(255,255,255,.82);--dline:rgba(10,20,60,.32);--led:#ffe58a;
+  --d1:#fff;--d2:#f8fafd;--dock:rgba(255,255,255,.96);--chrome:#fdeef7;
+}
+[data-theme="mint"]{
+  --name:"Mint Fresh";--mute:1;
+  --bg:radial-gradient(circle at 8% 8%,rgba(16,185,129,.15),transparent 27%),radial-gradient(circle at 94% 14%,rgba(14,165,233,.12),transparent 28%),linear-gradient(180deg,#ebfdf5 0%,#fbfcff 45%,#e8f8fb 100%);
+  --txt:#101d38;--sub:#70809b;--dim:#a3b1c6;
+  --tray:#f1f4f9;--sh:rgba(29,66,120,.16);--edge:rgba(255,255,255,.9);--well:#fbfdff;
+  --k1:#ffffff;--k2:#f5f7fb;--ktxt:#4c5f7c;--hl:#fff;--lip:#d0d9e6;
+  --brand:linear-gradient(105deg,#10b981,#14b8a6 50%,#0ea5e9);--blip:#047857;--bglow:rgba(16,185,129,.3);--btxt:#fff;
+  --bez1:#14b8a6;--bez2:#0b7f74;--disp:linear-gradient(118deg,#0fae7a 0%,#14b8a6 50%,#0e95d9 100%);
+  --t1:#fff;--t2:#d5fff0;--dsub:rgba(255,255,255,.82);--dline:rgba(10,20,60,.32);--led:#fff59a;
+  --d1:#fff;--d2:#f8fafd;--dock:rgba(255,255,255,.96);--chrome:#e6fbf3;
+}
+[data-theme="peach"]{
+  --name:"Peach Glow";--mute:1;
+  --bg:radial-gradient(circle at 8% 8%,rgba(251,146,60,.17),transparent 27%),radial-gradient(circle at 94% 14%,rgba(217,70,239,.11),transparent 28%),linear-gradient(180deg,#fff4ea 0%,#fbfcff 45%,#fdf0f6 100%);
+  --txt:#101d38;--sub:#70809b;--dim:#a3b1c6;
+  --tray:#f1f4f9;--sh:rgba(29,66,120,.16);--edge:rgba(255,255,255,.9);--well:#fbfdff;
+  --k1:#ffffff;--k2:#f5f7fb;--ktxt:#4c5f7c;--hl:#fff;--lip:#d0d9e6;
+  --brand:linear-gradient(105deg,#fb923c,#f43f5e 55%,#d946ef);--blip:#be123c;--bglow:rgba(244,63,94,.3);--btxt:#fff;
+  --bez1:#f43f5e;--bez2:#b4193f;--disp:linear-gradient(118deg,#f98a2c 0%,#f43f5e 50%,#d946ef 100%);
+  --t1:#fff;--t2:#ffe3cc;--dsub:rgba(255,255,255,.82);--dline:rgba(10,20,60,.32);--led:#b6ffd2;
+  --d1:#fff;--d2:#f8fafd;--dock:rgba(255,255,255,.96);--chrome:#fff1e6;
+}
+[data-theme="graphite"]{
+  --name:"Graphite Pro";--mute:1;
+  --bg:radial-gradient(circle at 8% 8%,rgba(71,85,105,.12),transparent 27%),radial-gradient(circle at 94% 14%,rgba(79,70,229,.10),transparent 28%),linear-gradient(180deg,#eef0f4 0%,#fbfcff 45%,#e9ecf2 100%);
+  --txt:#101d38;--sub:#70809b;--dim:#a3b1c6;
+  --tray:#f1f4f9;--sh:rgba(29,66,120,.16);--edge:rgba(255,255,255,.9);--well:#fbfdff;
+  --k1:#ffffff;--k2:#f5f7fb;--ktxt:#4c5f7c;--hl:#fff;--lip:#d0d9e6;
+  --brand:linear-gradient(105deg,#334155,#4f46e5 70%,#6d28d9);--blip:#1e1b4b;--bglow:rgba(79,70,229,.25);--btxt:#fff;
+  --bez1:#475569;--bez2:#1e293b;--disp:linear-gradient(118deg,#1e293b 0%,#334155 45%,#4f46e5 100%);
+  --t1:#fff;--t2:#dfe3ff;--dsub:rgba(255,255,255,.82);--dline:rgba(10,20,60,.32);--led:#6ef0b0;
+  --d1:#fff;--d2:#f8fafd;--dock:rgba(255,255,255,.96);--chrome:#eceef3;
+}
+[data-theme="royal"]{
+  --name:"Royal Night";--mute:1;
+  --bg:radial-gradient(circle at 8% 8%,rgba(36,135,247,.22),transparent 30%),radial-gradient(circle at 94% 14%,rgba(166,37,228,.20),transparent 30%),linear-gradient(180deg,#121c3d 0%,#0d1530 50%,#0a1128 100%);
+  --txt:#eef3ff;--sub:#95a6cc;--dim:#5e6e93;
+  --tray:#0b1330;--sh:rgba(0,0,0,.55);--edge:rgba(255,255,255,.06);--well:#070d22;
+  --k1:#22305e;--k2:#1a2550;--ktxt:#c3d0f0;--hl:rgba(255,255,255,.14);--lip:#060b1d;
+  --brand:linear-gradient(105deg,#148cf2 0%,#6f39ed 53%,#c625ce 100%);--blip:#3a1d93;--bglow:rgba(111,57,237,.45);--btxt:#fff;
+  --bez1:#4160ec;--bez2:#2b3fb5;--disp:linear-gradient(118deg,#0879e7 0%,#4160ec 46%,#a625e4 100%);
+  --t1:#fff;--t2:#e8e0ff;--dsub:rgba(255,255,255,.82);--dline:rgba(10,20,80,.4);--led:#7dffb3;
+  --d1:#18234a;--d2:#131c3d;--dock:rgba(16,24,52,.92);--chrome:#0d1530;
+}
+/* ===== Proven palettes (official colour values; contrast-checked to WCAG AA 4.5:1) ===== */
+[data-theme="ctp-latte"]{--name:"Catppuccin Latte";--mute:1;--bg:linear-gradient(180deg,#eff1f5 0%,#e6e9ef 100%);--txt:#4c4f69;--sub:#5c5f77;--dim:#6c6f85;--tray:#e6e9ef;--sh:rgba(76,79,105,0.16);--edge:rgba(255,255,255,.85);--well:#ffffff;--k1:#ffffff;--k2:#eff1f5;--ktxt:#5c5f77;--hl:#fff;--lip:#bcc0cc;--brand:linear-gradient(105deg,#1e66f5,#8839ef);--blip:#58259b;--bglow:rgba(30,102,245,0.3);--btxt:#ffffff;--bez1:#3e76e6;--bez2:#6028a8;--disp:linear-gradient(118deg,#1c5ee1 0%,#7832d2 100%);--t1:#ffffff;--t2:#e4edfe;--dsub:rgba(255,255,255,.86);--dline:rgba(60,25,105,0.45);--led:#dbedd7;--d1:#ffffff;--d2:#eff1f5;--dock:rgba(255,255,255,.95);--chrome:#eff1f5}
+[data-theme="ctp-mocha"]{--name:"Catppuccin Mocha";--mute:1;--bg:radial-gradient(110% 50% at 0% 0%,rgba(137,180,250,0.1),transparent 60%),linear-gradient(180deg,#1e1e2e 0%,#181825 100%);--txt:#cdd6f4;--sub:#bac2de;--dim:#a6adc8;--tray:#11111b;--sh:rgba(0,0,0,.55);--edge:rgba(255,255,255,.05);--well:#0d0d14;--k1:#45475a;--k2:#313244;--ktxt:#bac2de;--hl:rgba(255,255,255,.10);--lip:#09090f;--brand:linear-gradient(105deg,#89b4fa,#cba6f7);--blip:#5b4b6f;--bglow:rgba(137,180,250,0.35);--btxt:#1e1e2e;--bez1:#45475a;--bez2:#11111b;--disp:radial-gradient(110% 90% at 90% -10%,rgba(203,166,247,0.28),transparent 60%),radial-gradient(90% 80% at -10% 110%,rgba(137,180,250,0.22),transparent 60%),#0e0e16;--t1:#cdd6f4;--t2:#89b4fa;--dsub:#a6adc8;--dline:#000000;--led:#a6e3a1;--d1:#313244;--d2:#1e1e2e;--dock:rgba(24,24,37,0.92);--chrome:#1e1e2e}
+[data-theme="nord-light"]{--name:"Nord Snow Storm";--mute:1;--bg:linear-gradient(180deg,#eceff4 0%,#e5e9f0 100%);--txt:#2e3440;--sub:#3b4252;--dim:#4c566a;--tray:#e5e9f0;--sh:rgba(46,52,64,0.16);--edge:rgba(255,255,255,.85);--well:#ffffff;--k1:#ffffff;--k2:#eceff4;--ktxt:#3b4252;--hl:#fff;--lip:#c4ccd9;--brand:linear-gradient(105deg,#56779e,#5f778f);--blip:#3e4d5d;--bglow:rgba(86,119,158,0.3);--btxt:#ffffff;--bez1:#6983a2;--bez2:#2f3542;--disp:linear-gradient(118deg,#4f6d91 0%,#3b4252 100%);--t1:#ffffff;--t2:#ebeff3;--dsub:rgba(255,255,255,.86);--dline:rgba(30,33,41,0.45);--led:#e8efe2;--d1:#ffffff;--d2:#eceff4;--dock:rgba(255,255,255,.95);--chrome:#eceff4}
+[data-theme="nord"]{--name:"Nord Polar Night";--mute:1;--bg:radial-gradient(110% 50% at 0% 0%,rgba(136,192,208,0.1),transparent 60%),linear-gradient(180deg,#2e3440 0%,#2a2f3a 100%);--txt:#eceff4;--sub:#e5e9f0;--dim:#d8dee9;--tray:#242933;--sh:rgba(0,0,0,.55);--edge:rgba(255,255,255,.05);--well:#1b1f26;--k1:#434c5e;--k2:#3b4252;--ktxt:#e5e9f0;--hl:rgba(255,255,255,.10);--lip:#14171c;--brand:linear-gradient(105deg,#88c0d0,#81a1c1);--blip:#3a4857;--bglow:rgba(136,192,208,0.35);--btxt:#2e3440;--bez1:#434c5e;--bez2:#242933;--disp:radial-gradient(110% 90% at 90% -10%,rgba(129,161,193,0.28),transparent 60%),radial-gradient(90% 80% at -10% 110%,rgba(136,192,208,0.22),transparent 60%),#1d2129;--t1:#eceff4;--t2:#88c0d0;--dsub:#d8dee9;--dline:#000000;--led:#a3be8c;--d1:#3b4252;--d2:#2e3440;--dock:rgba(42,47,58,0.92);--chrome:#2e3440}
+[data-theme="dracula"]{--name:"Dracula";--mute:1;--bg:radial-gradient(110% 50% at 0% 0%,rgba(189,147,249,0.1),transparent 60%),linear-gradient(180deg,#282a36 0%,#21222c 100%);--txt:#f8f8f2;--sub:#e2e2dc;--dim:#a4acd0;--tray:#191a21;--sh:rgba(0,0,0,.55);--edge:rgba(255,255,255,.05);--well:#131419;--k1:#4d5066;--k2:#44475a;--ktxt:#e2e2dc;--hl:rgba(255,255,255,.10);--lip:#0e0e12;--brand:linear-gradient(105deg,#bd93f9,#ff79c6);--blip:#733659;--bglow:rgba(189,147,249,0.35);--btxt:#282a36;--bez1:#4d5066;--bez2:#191a21;--disp:radial-gradient(110% 90% at 90% -10%,rgba(255,121,198,0.28),transparent 60%),radial-gradient(90% 80% at -10% 110%,rgba(189,147,249,0.22),transparent 60%),#14151a;--t1:#f8f8f2;--t2:#bd93f9;--dsub:#a4acd0;--dline:#000000;--led:#50fa7b;--d1:#44475a;--d2:#282a36;--dock:rgba(33,34,44,0.92);--chrome:#282a36}
+[data-theme="rp-dawn"]{--name:"Rosé Pine Dawn";--mute:1;--bg:linear-gradient(180deg,#faf4ed 0%,#f2e9e1 100%);--txt:#575279;--sub:#575279;--dim:#797593;--tray:#f2e9e1;--sh:rgba(87,82,121,0.16);--edge:rgba(255,255,255,.85);--well:#ffffff;--k1:#ffffff;--k2:#faf4ed;--ktxt:#575279;--hl:#fff;--lip:#dfd4ca;--brand:linear-gradient(105deg,#286983,#826e98);--blip:#544863;--bglow:rgba(40,105,131,0.3);--btxt:#ffffff;--bez1:#46798d;--bez2:#5b4e6b;--disp:linear-gradient(118deg,#256179 0%,#726186 100%);--t1:#ffffff;--t2:#e5edf0;--dsub:rgba(255,255,255,.86);--dline:rgba(57,48,67,0.45);--led:#dfebed;--d1:#ffffff;--d2:#faf4ed;--dock:rgba(255,255,255,.95);--chrome:#faf4ed}
+[data-theme="rp"]{--name:"Rosé Pine";--mute:1;--bg:radial-gradient(110% 50% at 0% 0%,rgba(196,167,231,0.1),transparent 60%),linear-gradient(180deg,#191724 0%,#16141f 100%);--txt:#e0def4;--sub:#e0def4;--dim:#908caa;--tray:#121019;--sh:rgba(0,0,0,.55);--edge:rgba(255,255,255,.05);--well:#0e0c13;--k1:#2f2b45;--k2:#26233a;--ktxt:#e0def4;--hl:rgba(255,255,255,.10);--lip:#0a090e;--brand:linear-gradient(105deg,#c4a7e7,#ebbcba);--blip:#6a5554;--bglow:rgba(196,167,231,0.35);--btxt:#191724;--bez1:#2f2b45;--bez2:#121019;--disp:radial-gradient(110% 90% at 90% -10%,rgba(235,188,186,0.28),transparent 60%),radial-gradient(90% 80% at -10% 110%,rgba(196,167,231,0.22),transparent 60%),#0e0d14;--t1:#e0def4;--t2:#c4a7e7;--dsub:#908caa;--dline:#000000;--led:#9ccfd8;--d1:#26233a;--d2:#191724;--dock:rgba(22,20,31,0.92);--chrome:#191724}
+[data-theme="tokyo"]{--name:"Tokyo Night";--mute:1;--bg:radial-gradient(110% 50% at 0% 0%,rgba(122,162,247,0.1),transparent 60%),linear-gradient(180deg,#1a1b26 0%,#16161e 100%);--txt:#c0caf5;--sub:#a9b1d6;--dim:#7982a9;--tray:#13131a;--sh:rgba(0,0,0,.55);--edge:rgba(255,255,255,.05);--well:#0e0e14;--k1:#2f3549;--k2:#24283b;--ktxt:#a9b1d6;--hl:rgba(255,255,255,.10);--lip:#0a0a0e;--brand:linear-gradient(105deg,#7aa2f7,#bb9af7);--blip:#54456f;--bglow:rgba(122,162,247,0.35);--btxt:#1a1b26;--bez1:#2f3549;--bez2:#13131a;--disp:radial-gradient(110% 90% at 90% -10%,rgba(187,154,247,0.28),transparent 60%),radial-gradient(90% 80% at -10% 110%,rgba(122,162,247,0.22),transparent 60%),#0f0f15;--t1:#c0caf5;--t2:#7aa2f7;--dsub:#7982a9;--dline:#000000;--led:#9ece6a;--d1:#24283b;--d2:#1a1b26;--dock:rgba(22,22,30,0.92);--chrome:#1a1b26}
+[data-theme="sol-light"]{--name:"Solarized Light";--mute:1;--bg:linear-gradient(180deg,#fdf6e3 0%,#eee8d5 100%);--txt:#073642;--sub:#586e75;--dim:#586e75;--tray:#eee8d5;--sh:rgba(7,54,66,0.16);--edge:rgba(255,255,255,.85);--well:#ffffff;--k1:#ffffff;--k2:#fdf6e3;--ktxt:#586e75;--hl:#fff;--lip:#d6cfb9;--brand:linear-gradient(105deg,#217ab9,#6a6fc0);--blip:#45487d;--bglow:rgba(33,122,185,0.3);--btxt:#ffffff;--bez1:#4085b7;--bez2:#4a4e87;--disp:linear-gradient(118deg,#1e70aa 0%,#5d62a9 100%);--t1:#ffffff;--t2:#e4eff7;--dsub:rgba(255,255,255,.86);--dline:rgba(46,49,84,0.45);--led:#ebefd6;--d1:#ffffff;--d2:#fdf6e3;--dock:rgba(255,255,255,.95);--chrome:#fdf6e3}
+[data-theme="gruvbox"]{--name:"Gruvbox Dark";--mute:1;--bg:radial-gradient(110% 50% at 0% 0%,rgba(250,189,47,0.1),transparent 60%),linear-gradient(180deg,#282828 0%,#1d2021 100%);--txt:#ebdbb2;--sub:#d5c4a1;--dim:#bdae93;--tray:#171919;--sh:rgba(0,0,0,.55);--edge:rgba(255,255,255,.05);--well:#111313;--k1:#504945;--k2:#3c3836;--ktxt:#d5c4a1;--hl:rgba(255,255,255,.10);--lip:#0d0e0e;--brand:linear-gradient(105deg,#fabd2f,#fe8019);--blip:#723a0b;--bglow:rgba(250,189,47,0.35);--btxt:#282828;--bez1:#504945;--bez2:#171919;--disp:radial-gradient(110% 90% at 90% -10%,rgba(254,128,25,0.28),transparent 60%),radial-gradient(90% 80% at -10% 110%,rgba(250,189,47,0.22),transparent 60%),#121414;--t1:#ebdbb2;--t2:#fabd2f;--dsub:#bdae93;--dline:#000000;--led:#b8bb26;--d1:#3c3836;--d2:#282828;--dock:rgba(29,32,33,0.92);--chrome:#282828}
+[data-theme="m3"]{--name:"Material 3";--mute:1;--bg:linear-gradient(180deg,#fffbfe 0%,#f4eff4 100%);--txt:#1c1b1f;--sub:#49454f;--dim:#49454f;--tray:#f4eff4;--sh:rgba(28,27,31,0.16);--edge:rgba(255,255,255,.85);--well:#ffffff;--k1:#ffffff;--k2:#fffbfe;--ktxt:#49454f;--hl:#fff;--lip:#cac4d0;--brand:linear-gradient(105deg,#6750a4,#7d5260);--blip:#51353e;--bglow:rgba(103,80,164,0.3);--btxt:#ffffff;--bez1:#7e6ab2;--bez2:#3f2c6f;--disp:linear-gradient(118deg,#6750a4 0%,#4f378b 100%);--t1:#ffffff;--t2:#edeaf4;--dsub:rgba(255,255,255,.86);--dline:rgba(40,28,70,0.45);--led:#d3dece;--d1:#ffffff;--d2:#fffbfe;--dock:rgba(255,255,255,.95);--chrome:#fffbfe}
+[data-theme="ios"]{--name:"iOS System";--mute:1;--bg:linear-gradient(180deg,#f2f2f7 0%,#e9e9ef 100%);--txt:#000000;--sub:#3c3c43;--dim:#3c3c43;--tray:#e9e9ef;--sh:rgba(0,0,0,0.16);--edge:rgba(255,255,255,.85);--well:#ffffff;--k1:#ffffff;--k2:#f2f2f7;--ktxt:#3c3c43;--hl:#fff;--lip:#c7c7cc;--brand:linear-gradient(105deg,#0070eb,#5856d6);--blip:#39388b;--bglow:rgba(0,112,235,0.3);--btxt:#ffffff;--bez1:#2f85e5;--bez2:#3a389d;--disp:linear-gradient(118deg,#0a6fe0 0%,#4846c4 100%);--t1:#ffffff;--t2:#e0eefd;--dsub:rgba(255,255,255,.86);--dline:rgba(36,35,98,0.45);--led:#f1fbf3;--d1:#ffffff;--d2:#f2f2f7;--dock:rgba(255,255,255,.95);--chrome:#f2f2f7}
+[data-theme="bubblegum"]{
+  --name:"Bubblegum Pop";
+  --bg:radial-gradient(110% 50% at 0% 0%,#ffc2e4,transparent 60%),radial-gradient(90% 45% at 100% 0%,#ffe0a8,transparent 60%),linear-gradient(180deg,#ffe6f3,#ffd0e8);
+  --txt:#4a1036;--sub:#a0537f;--dim:#d08bb2;
+  --tray:#f9c3df;--sh:rgba(160,20,95,.28);--edge:rgba(255,255,255,.75);--well:#fff3f9;
+  --k1:#ffffff;--k2:#ffe6f3;--ktxt:#b03b7c;--hl:#fff;--lip:#e597c0;
+  --brand:linear-gradient(120deg,#ff3fa0,#ff7a59 55%,#ffb800);--blip:#c2306f;--bglow:rgba(255,63,160,.45);--btxt:#fff;
+  --bez1:#ff8cc6;--bez2:#e0559c;--disp:radial-gradient(110% 90% at 90% -10%,rgba(255,184,0,.35),transparent 60%),radial-gradient(90% 80% at -10% 110%,rgba(255,63,160,.45),transparent 60%),#4f0d36;
+  --t1:#fff;--t2:#ffd1ec;--dsub:#ffb3da;--dline:#2a0419;--led:#ffe45c;
+  --d1:#fff;--d2:#ffeaf5;--dock:rgba(255,236,246,.92);--chrome:#ffd0e8;
+}
+[data-theme="mango"]{
+  --name:"Mango Sunrise";
+  --bg:radial-gradient(110% 50% at 100% 0%,#ffb35c,transparent 60%),linear-gradient(180deg,#fff2c4,#ffd88a);
+  --txt:#4a2600;--sub:#a2642a;--dim:#d1a06a;
+  --tray:#ffcf73;--sh:rgba(165,85,0,.32);--edge:rgba(255,255,255,.65);--well:#fffaf0;
+  --k1:#fffdf5;--k2:#ffedc4;--ktxt:#b45a00;--hl:#fff;--lip:#e3a24a;
+  --brand:linear-gradient(120deg,#ffb000,#ff6a00 50%,#ff2e63);--blip:#c2410c;--bglow:rgba(255,106,0,.45);--btxt:#fff;
+  --bez1:#ffb347;--bez2:#e07b1a;--disp:radial-gradient(110% 90% at 90% -10%,rgba(255,176,0,.45),transparent 60%),radial-gradient(90% 80% at -10% 110%,rgba(255,46,99,.35),transparent 60%),#3b1600;
+  --t1:#fff;--t2:#ffd27a;--dsub:#ffc58a;--dline:#1c0a00;--led:#7dff6a;
+  --d1:#fffaf0;--d2:#ffefcc;--dock:rgba(255,242,206,.92);--chrome:#ffd88a;
+}
+[data-theme="ocean"]{
+  --name:"Ocean Splash";
+  --bg:radial-gradient(110% 50% at 0% 0%,#8ff0ff,transparent 60%),linear-gradient(180deg,#d4f8ff,#86dcf0);
+  --txt:#023047;--sub:#2d7a99;--dim:#6fb3c9;
+  --tray:#8fdcef;--sh:rgba(0,75,115,.3);--edge:rgba(255,255,255,.65);--well:#f0fcff;
+  --k1:#ffffff;--k2:#dcf6ff;--ktxt:#0077a8;--hl:#fff;--lip:#5bb8d4;
+  --brand:linear-gradient(120deg,#00d4ff,#0066ff 55%,#7b2ff7);--blip:#003fa3;--bglow:rgba(0,140,255,.45);--btxt:#fff;
+  --bez1:#3fc5e8;--bez2:#0b86b5;--disp:radial-gradient(110% 90% at 90% -10%,rgba(0,212,255,.4),transparent 60%),radial-gradient(90% 80% at -10% 110%,rgba(123,47,247,.35),transparent 60%),#001c30;
+  --t1:#fff;--t2:#9fefff;--dsub:#7fd3ee;--dline:#000b14;--led:#4dffb8;
+  --d1:#f0fcff;--d2:#d6f5ff;--dock:rgba(228,250,255,.92);--chrome:#86dcf0;
+}
+[data-theme="lime"]{
+  --name:"Lime Pop";
+  --bg:radial-gradient(110% 50% at 100% 0%,#fff36b,transparent 60%),linear-gradient(180deg,#efffc9,#c3f26a);
+  --txt:#1f3b00;--sub:#5b8a14;--dim:#9cc45a;
+  --tray:#b3e655;--sh:rgba(60,115,0,.32);--edge:rgba(255,255,255,.6);--well:#fbfff0;
+  --k1:#ffffff;--k2:#efffd0;--ktxt:#4b8a00;--hl:#fff;--lip:#8cc23a;
+  --brand:linear-gradient(120deg,#00d26a,#00b3b3 55%,#0090ff);--blip:#00785a;--bglow:rgba(0,210,106,.45);--btxt:#fff;
+  --bez1:#8fd93a;--bez2:#5aa312;--disp:radial-gradient(110% 90% at 90% -10%,rgba(0,210,106,.4),transparent 60%),radial-gradient(90% 80% at -10% 110%,rgba(0,144,255,.3),transparent 60%),#0d2600;
+  --t1:#fff;--t2:#d9ff8a;--dsub:#b7e66a;--dline:#051000;--led:#ffe84d;
+  --d1:#fbfff0;--d2:#ecffc8;--dock:rgba(244,255,220,.92);--chrome:#c3f26a;
+}
+[data-theme="grape"]{
+  --name:"Grape Soda";
+  --bg:radial-gradient(110% 50% at 0% 0%,rgba(184,77,255,.45),transparent 60%),radial-gradient(90% 45% at 100% 0%,rgba(255,77,210,.35),transparent 60%),linear-gradient(180deg,#2c0b4e,#18052b);
+  --txt:#f6eaff;--sub:#c39be6;--dim:#8a62ad;
+  --tray:#14032a;--sh:rgba(0,0,0,.6);--edge:rgba(255,255,255,.06);--well:#0b0118;
+  --k1:#4d2180;--k2:#36135c;--ktxt:#e3c8ff;--hl:rgba(255,255,255,.18);--lip:#11021f;
+  --brand:linear-gradient(120deg,#ff4dd2,#b84dff 55%,#5a5cff);--blip:#5a0f8a;--bglow:rgba(255,77,210,.5);--btxt:#fff;
+  --bez1:#5c2a91;--bez2:#2a0b4a;--disp:radial-gradient(110% 90% at 90% -10%,rgba(255,77,210,.4),transparent 60%),radial-gradient(90% 80% at -10% 110%,rgba(90,92,255,.35),transparent 60%),#0d0220;
+  --t1:#fff;--t2:#ffc2f1;--dsub:#c39be6;--dline:#050010;--led:#5effc4;
+  --d1:#3d1766;--d2:#2c0f4c;--dock:rgba(42,11,74,.92);--chrome:#2c0b4e;
+}
+[data-theme="carnival"]{
+  --name:"Carnival Fete";
+  --bg:radial-gradient(110% 50% at 0% 0%,rgba(255,59,59,.45),transparent 60%),radial-gradient(90% 45% at 100% 0%,rgba(255,196,0,.35),transparent 60%),linear-gradient(180deg,#2d0012,#17000a);
+  --txt:#fff3e6;--sub:#f0a5a5;--dim:#a35a5a;
+  --tray:#150007;--sh:rgba(0,0,0,.6);--edge:rgba(255,255,255,.06);--well:#0c0004;
+  --k1:#661029;--k2:#46071b;--ktxt:#ffd7c2;--hl:rgba(255,255,255,.16);--lip:#110005;
+  --brand:linear-gradient(120deg,#ffd000,#ff5a1f 50%,#e8005a);--blip:#8a0030;--bglow:rgba(255,120,0,.55);--btxt:#fff;
+  --bez1:#8a1f35;--bez2:#3a0614;--disp:radial-gradient(110% 90% at 90% -10%,rgba(255,208,0,.35),transparent 60%),radial-gradient(90% 80% at -10% 110%,rgba(232,0,90,.4),transparent 60%),#120006;
+  --t1:#fff7c2;--t2:#ffc400;--dsub:#f0a5a5;--dline:#050001;--led:#ffd400;
+  --d1:#4a0a1f;--d2:#350615;--dock:rgba(43,0,16,.92);--chrome:#2d0012;
+}
+[data-theme="cotton"]{
+  --name:"Cotton Candy";
+  --bg:radial-gradient(110% 50% at 0% 0%,#ffd1f0,transparent 60%),radial-gradient(90% 45% at 100% 0%,#c9e6ff,transparent 60%),linear-gradient(180deg,#fdeeff,#e3efff);
+  --txt:#3b2a5c;--sub:#8a78b0;--dim:#b7a8d6;
+  --tray:#e2d2f7;--sh:rgba(110,80,170,.26);--edge:rgba(255,255,255,.85);--well:#ffffff;
+  --k1:#ffffff;--k2:#f3ecff;--ktxt:#7a5cc7;--hl:#fff;--lip:#c9b5ee;
+  --brand:linear-gradient(120deg,#ff7fd5,#b28cff 55%,#5fbfff);--blip:#8a63d9;--bglow:rgba(178,140,255,.5);--btxt:#fff;
+  --bez1:#d8c4ff;--bez2:#a98be6;--disp:radial-gradient(110% 90% at 90% -10%,rgba(255,127,213,.45),transparent 60%),radial-gradient(90% 80% at -10% 110%,rgba(95,191,255,.4),transparent 60%),#2b1f4f;
+  --t1:#fff;--t2:#ffd6f2;--dsub:#c7b6f0;--dline:#110924;--led:#7dffcf;
+  --d1:#fff;--d2:#f5efff;--dock:rgba(250,245,255,.92);--chrome:#f2e8ff;
+}
+[data-theme="arcade"]{
+  --name:"Arcade Glow";
+  --bg:radial-gradient(110% 50% at 0% 0%,rgba(0,255,156,.18),transparent 60%),radial-gradient(90% 45% at 100% 0%,rgba(0,225,255,.16),transparent 60%),linear-gradient(180deg,#060b08,#000);
+  --txt:#eafff4;--sub:#6fbf98;--dim:#3f6b55;
+  --tray:#020503;--sh:rgba(0,0,0,.8);--edge:rgba(0,255,156,.08);--well:#000;
+  --k1:#12271d;--k2:#0a1710;--ktxt:#8cf5c4;--hl:rgba(140,255,200,.16);--lip:#000;
+  --brand:linear-gradient(120deg,#00ff9c,#00e1ff);--blip:#007a55;--bglow:rgba(0,255,156,.55);--btxt:#00170e;
+  --bez1:#1b3a2b;--bez2:#08130d;--disp:radial-gradient(110% 90% at 90% -10%,rgba(0,225,255,.2),transparent 60%),repeating-linear-gradient(0deg,rgba(0,255,156,.04) 0 2px,transparent 2px 4px),#000;
+  --t1:#c8ffe6;--t2:#00ff9c;--dsub:#5fb08a;--dline:#000;--led:#ff3df0;
+  --d1:#0d1c15;--d2:#08120d;--dock:rgba(4,10,7,.92);--chrome:#000;
+}
+[data-theme="sunset"]{
+  --name:"Sunset Vibes";
+  --bg:radial-gradient(110% 55% at 100% 0%,rgba(255,106,61,.55),transparent 60%),radial-gradient(90% 45% at 0% 0%,rgba(255,46,136,.4),transparent 60%),linear-gradient(180deg,#3a0d5c,#1c0630);
+  --txt:#fff1e8;--sub:#f3a98a;--dim:#a8708a;
+  --tray:#1f0630;--sh:rgba(0,0,0,.55);--edge:rgba(255,255,255,.06);--well:#12031d;
+  --k1:#55206a;--k2:#3b1250;--ktxt:#ffc9b0;--hl:rgba(255,255,255,.16);--lip:#14031f;
+  --brand:linear-gradient(120deg,#ffcc33,#ff6a3d 50%,#ff2e88);--blip:#a11a4a;--bglow:rgba(255,106,61,.55);--btxt:#fff;
+  --bez1:#6b2a6e;--bez2:#33103f;--disp:radial-gradient(110% 90% at 90% -10%,rgba(255,204,51,.35),transparent 60%),radial-gradient(90% 80% at -10% 110%,rgba(255,46,136,.4),transparent 60%),#150420;
+  --t1:#fff3d6;--t2:#ffb36b;--dsub:#f3a98a;--dline:#07010c;--led:#ffd23d;
+  --d1:#431656;--d2:#300e40;--dock:rgba(40,10,55,.92);--chrome:#3a0d5c;
+}
+
+/* ================= BASE ================= */
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{background:#eaf3ff}
-body{
-  margin:0;color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-  background:
-    radial-gradient(circle at 8% 8%,rgba(36,135,247,.14),transparent 27%),
-    radial-gradient(circle at 94% 14%,rgba(128,51,238,.12),transparent 28%),
-    linear-gradient(180deg,#eef6ff 0%,#f8fbff 45%,#eef5ff 100%);
-  min-height:100vh;
-}
-button,input,select{font:inherit}
+html{background:var(--chrome)}
+body{margin:0;color:var(--Ttxt);min-height:100vh;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);background-attachment:fixed;transition:color .25s}
+button,input{font:inherit;color:inherit}
 button{cursor:pointer}
-.app{
-  width:min(100%,760px);margin:0 auto;
-  padding:0 11px calc(102px + env(safe-area-inset-bottom));
-}
-.header{
-  position:relative;overflow:hidden;margin:0 -11px 14px;
-  padding:max(18px,env(safe-area-inset-top)) 18px 22px;
-  border-radius:0 0 30px 30px;
-  background:linear-gradient(118deg,#0879e7 0%,#4160ec 46%,#a625e4 100%);
-  box-shadow:0 14px 30px rgba(49,70,192,.20);color:#fff;
-}
-.header:before,.header:after{content:"";position:absolute;border-radius:50%;pointer-events:none}
-.header:before{width:180px;height:180px;right:-90px;top:-105px;background:rgba(255,255,255,.10)}
-.header:after{width:120px;height:120px;left:36%;bottom:-92px;background:rgba(255,255,255,.08)}
-.header-row{position:relative;z-index:1;display:flex;align-items:center;gap:13px}
-.logo{
-  width:66px;height:66px;flex:none;position:relative;display:block;overflow:hidden;border-radius:50%;
-  background:#4ab2f4;
-  box-shadow:0 0 0 2px rgba(16,45,100,.35),0 9px 18px rgba(0,0,0,.18)
-}
-.logo img{
-  position:absolute;left:50%;top:50%;width:115%;height:115%;max-width:none;
-  transform:translate(-50%,-50%);object-fit:contain;display:block
-}
-.brand{min-width:0;flex:1}
-.brand h1{
-  margin:0;font-size:clamp(23px,5vw,30px);line-height:1.02;font-weight:900;
-  letter-spacing:-.7px;text-shadow:0 1px 0 rgba(0,0,0,.08)
-}
-.brand p{
-  margin:5px 0 0;font-size:clamp(12px,3.2vw,15px);font-weight:500;opacity:.94;
-  letter-spacing:.1px
-}
-.reset{
-  position:relative;z-index:1;flex:none;border:1px solid rgba(255,255,255,.55);
-  background:rgba(255,255,255,.12);color:#fff;border-radius:14px;padding:9px 12px;
-  font-weight:800;font-size:12px;backdrop-filter:blur(8px)
-}
-.card{
-  background:rgba(255,255,255,.96);border:1px solid rgba(255,255,255,.95);
-  border-radius:21px;margin:12px 0;padding:16px;box-shadow:var(--shadow)
-}
-.section-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.section-icon{
-  width:36px;height:36px;border-radius:12px;display:grid;place-items:center;flex:none;
-  background:linear-gradient(145deg,#edf6ff,#eeeaff);color:#1669dc
-}
-.section-icon svg{width:20px;height:20px}
-.section-title{min-width:0;flex:1}
-.section-title h2{margin:0;font-size:17px;line-height:1.1;font-weight:900;letter-spacing:-.2px}
-.section-title p{margin:4px 0 0;color:var(--muted);font-size:10.5px}
-.helper-chip{
-  flex:none;background:#f1f5fb;color:#71829d;border-radius:999px;
-  padding:7px 10px;font-size:10.5px;font-weight:700
-}
-.inputs{
-  display:grid;grid-template-columns:1fr 1.38fr .75fr;gap:9px;align-items:end
-}
-.field label,.label{
-  display:block;margin:0 0 6px;color:#475d7c;font-size:11.5px;font-weight:800
-}
-.input-box{
-  height:45px;display:flex;align-items:center;overflow:hidden;
-  border:1px solid #cedbea;border-radius:13px;background:#fbfdff;
-  transition:border-color .18s,box-shadow .18s,background .18s
-}
-.input-box:focus-within{
-  background:#fff;border-color:#3b8ff2;box-shadow:0 0 0 3px rgba(59,143,242,.11)
-}
-input,select{
-  width:100%;min-width:0;height:100%;border:0;outline:0;background:transparent;
-  color:var(--ink);padding:0 10px;font-size:15px;font-weight:800
-}
-input::placeholder{color:#b0bccb;font-weight:650}
-select{appearance:auto;padding-right:4px}
-.prefix{
-  width:37px;min-width:37px;height:100%;display:grid;place-items:center;
-  color:#55708e;font-size:19px;font-weight:800
-}
-.unit{
-  width:66px;min-width:66px;border-left:1px solid #dde6f1;
-  color:#385572;font-size:11.5px;font-weight:900
-}
-.rate select{font-size:14px}
-.delivery-wrap{margin-top:15px}
-.delivery-grid{display:grid;grid-template-columns:minmax(0,1fr) 152px;gap:11px;align-items:end}
-.segment{
-  display:grid;grid-template-columns:1fr 1fr 1fr;background:#f1f5fb;border:1px solid #dce6f2;
-  border-radius:13px;padding:3px;height:46px
-}
-.segment button{
-  border:0;border-radius:10px;background:transparent;color:#4c5f7c;
-  font-size:12px;font-weight:850
-}
-.segment button.active{
-  color:#fff;background:linear-gradient(115deg,#168cf7,#7d38ef);
-  box-shadow:0 6px 14px rgba(73,76,226,.20)
-}
-.amazon{
-  margin-top:14px;display:flex;align-items:center;gap:10px;color:#334966;font-size:12.5px;font-weight:800
-}
-.toggle{position:relative;width:44px;height:25px;flex:none}
-.toggle input{position:absolute;opacity:0;width:0;height:0}
-.track{position:absolute;inset:0;border-radius:999px;background:#d8e1ed;transition:.2s}
-.track:after{
-  content:"";position:absolute;width:19px;height:19px;left:3px;top:3px;border-radius:50%;
-  background:#fff;box-shadow:0 2px 6px rgba(21,47,86,.22);transition:.2s
-}
-.toggle input:checked+.track{background:linear-gradient(110deg,#198cf7,#7638ed)}
-.toggle input:checked+.track:after{transform:translateX(19px)}
-.toggle input:focus-visible+.track{outline:3px solid #115fc5;outline-offset:3px}
-.tax-shortcuts{margin-top:13px;padding:10px;border:1px solid #dce6f2;border-radius:13px;background:linear-gradient(145deg,#f8fbff,#f5f2ff)}
-.tax-shortcuts-head{font-size:12px;font-weight:900;color:#304460;margin-bottom:9px}
-.tax-shortcuts-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
-.tax-shortcut{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-width:0;min-height:68px;padding:7px 3px;border:1px solid #e0e8f3;border-radius:11px;background:#fff;color:#314661;text-align:center;font-size:11px;font-weight:850;cursor:pointer}
-.tax-shortcut .toggle{margin:0}
-.tax-duty-controls{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:9px;color:#475d7c;font-size:11.5px;font-weight:800}
-.tax-duty-controls .duty-pills button{min-height:36px;min-width:44px;font-size:11px}
-.payment-box{
-  border:1px solid #dce5f0;background:linear-gradient(145deg,#fbfdff,#f6f3ff);
-  border-radius:15px;padding:8px 13px 0
-}
-.pay-row{
-  min-height:43px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;
-  align-items:center;border-bottom:1px solid #e4eaf3
-}
-.pay-row .name{color:#53657f;font-size:12.5px;font-weight:650}
-.pay-row .value{color:#132443;font-size:14px;font-weight:900;text-align:right}
-.total-row{
-  display:grid;grid-template-columns:1fr auto;gap:10px;align-items:baseline;
-  padding:13px 0 14px;color:#5b29d9;font-weight:950
-}
-.total-row .name{font-size:19px;letter-spacing:-.2px}
-.total-row .value{font-size:27px;letter-spacing:-.5px;text-align:right}
-.profit{
-  margin-top:10px;min-height:46px;display:flex;justify-content:space-between;align-items:center;
-  gap:10px;padding:10px 13px;border:1px solid #c8edd5;border-radius:13px;
-  background:linear-gradient(100deg,#ecfbf1,#e7f9ee);color:#138047;font-size:12.5px;font-weight:900
-}
-.profit .right{text-align:right;white-space:nowrap}
-.copy{
-  margin-top:11px;width:100%;height:48px;border:0;border-radius:13px;color:#fff;
-  background:linear-gradient(105deg,#148cf2 0%,#6f39ed 53%,#c625ce 100%);
-  font-size:14px;font-weight:900;box-shadow:0 9px 19px rgba(78,60,224,.18)
-}
-.copy.dim{opacity:.55;box-shadow:none}
-.copy svg{vertical-align:-4px;margin-right:7px}
-.fees-head{margin-bottom:7px}
-.currency{
-  display:flex;flex:none;border:1px solid #dbe5f1;background:#f0f5fa;padding:3px;border-radius:11px
-}
-.currency button{
-  border:0;background:transparent;color:#75849a;border-radius:8px;padding:7px 11px;
-  font-size:10.5px;font-weight:900
-}
-.currency button.active{background:#fff;color:#6635e5;box-shadow:0 2px 7px rgba(35,59,100,.10)}
-.fee-columns{display:grid;grid-template-columns:1fr 1.12fr;gap:22px}
-.fee-group h3{
-  margin:8px 0 7px;padding-bottom:8px;border-bottom:1px solid #e5ebf3;
-  font-size:13px;font-weight:900
-}
-.fee-row,.tax-row{
-  min-height:45px;display:grid;align-items:center;border-bottom:1px solid #edf1f6
-}
-.fee-row{grid-template-columns:minmax(0,1fr) auto;gap:9px}
-.fee-row:last-child,.tax-row:last-child{border-bottom:0}
-.fee-name{color:#52647f;font-size:12px;font-weight:650}
-.amount{
-  min-width:83px;text-align:right;color:#142641;font-size:13.5px;font-weight:900
-}
-.tax-row{grid-template-columns:minmax(0,1fr) auto;gap:8px}
-.tax-name{font-size:11.7px;font-weight:800;color:#314661;line-height:1.2}
-.tax-meta{display:flex;align-items:center;gap:6px;margin-top:4px}
-.fixed{
-  background:#eef3f8;color:#8190a4;border-radius:7px;padding:4px 7px;
-  font-size:9.5px;font-weight:800;white-space:nowrap
-}
-.duty-pills{display:flex;background:#eef3f8;border-radius:8px;padding:2px}
-.duty-pills button{
-  border:0;background:transparent;color:#718098;border-radius:6px;padding:4px 7px;
-  font-size:9.5px;font-weight:900
-}
-.duty-pills button.active{color:#fff;background:#7337e7}
-.tax-off{opacity:.5}
-.toast{
-  position:fixed;left:50%;bottom:max(24px,calc(env(safe-area-inset-bottom) + 14px));
-  transform:translate(-50%,18px);opacity:0;z-index:50;pointer-events:none;
-  color:#fff;background:#132744;padding:10px 15px;border-radius:999px;
-  font-size:11.5px;font-weight:850;box-shadow:0 10px 25px rgba(0,0,0,.22);transition:.2s
-}
+.num{font-variant-numeric:tabular-nums}
+.app{width:min(100%,560px);margin:0 auto;padding:max(8px,env(safe-area-inset-top)) 10px calc(96px + env(safe-area-inset-bottom))}
+
+/* top bar */
+.top{display:flex;align-items:center;gap:8px;padding:2px 2px 8px}
+.logo{width:38px;height:38px;border-radius:50%;overflow:hidden;position:relative;flex:none;background:#4ab2f4;box-shadow:0 0 0 2px var(--hl),0 3px 0 var(--lip)}
+.logo img{position:absolute;left:50%;top:50%;width:115%;height:115%;transform:translate(-50%,-50%);object-fit:contain}
+.brand{flex:1;min-width:0}
+.brand h1{margin:0;font-size:calc(17px * var(--u-fs,1));font-weight:900;letter-spacing:-.3px}
+.brand p{margin:1px 0 0;font-size:calc(11px * var(--u-fs,1));color:var(--Tsub);font-weight:600}
+.icon-key{height:42px;min-width:42px;padding:0 11px;border-radius:12px;border:0;display:flex;align-items:center;justify-content:center;gap:6px;flex:none;font-size:calc(12px * var(--u-fs,1));font-weight:850;
+  background:linear-gradient(180deg,var(--k1),var(--k2));color:var(--Tk);box-shadow:inset 0 1px 0 var(--hl),0 3px 0 var(--lip);transition:transform .07s,box-shadow .07s}
+.icon-key:active{transform:translateY(2px);box-shadow:0 1px 0 var(--lip)}
+.icon-key svg{width:16px;height:16px}
+.theme-btn{padding:0;width:42px;font-size:calc(19px * var(--u-fs,1));background:var(--brand);color:var(--Tb);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 3px 0 var(--blip),0 0 12px var(--bglow)}
+.theme-btn:active{box-shadow:0 1px 0 var(--blip)}
+
+/* result screen */
+.bezel{border-radius:20px;padding:5px;background:linear-gradient(180deg,var(--bez1),var(--bez2));box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 4px 0 var(--lip),0 12px 22px rgba(0,0,0,.3)}
+.display{position:relative;overflow:hidden;border-radius:16px;padding:10px 13px;background:var(--disp);box-shadow:inset 0 5px 14px rgba(0,0,0,.75);color:#fff}
+.display:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(255,255,255,.08),transparent 35%)}
+.d1{display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
+.cap{font-size:calc(9.5px * var(--u-fs,1));font-weight:850;letter-spacing:1.3px;color:var(--Tsub);text-transform:uppercase}
+.display .cap{color:var(--dsub)}
+.total{font-size:calc(clamp(30px,9.5vw,40px) * var(--u-fs,1));font-weight:900;letter-spacing:-1.2px;line-height:1.05;margin-top:2px;
+  background:linear-gradient(180deg,var(--t1) 20%,var(--t2) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.total.empty{background:none;-webkit-text-fill-color:rgba(255,255,255,.22)}
+.led{display:inline-flex;align-items:center;gap:5px}
+.led i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.2)}
+.led.on i{background:var(--led);box-shadow:0 0 8px var(--led)}
+.profit-mini{text-align:right;color:var(--led);font-weight:850;font-size:calc(13px * var(--u-fs,1));white-space:nowrap}
+.profit-mini small{display:block;font-size:calc(9.5px * var(--u-fs,1));color:var(--dsub);font-weight:750;letter-spacing:.5px}
+.groove{height:3px;border-radius:3px;margin:8px 0;background:var(--dline);box-shadow:inset 0 1px 1px rgba(0,0,0,.9),0 1px 0 rgba(255,255,255,.08)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.split div{min-width:0}
+.split div+div{border-left:2px solid var(--dline);box-shadow:-1px 0 0 rgba(255,255,255,.08);padding-left:10px}
+.split span{display:block;font-size:calc(10px * var(--u-fs,1));color:var(--dsub);font-weight:700}
+.split b{display:block;font-size:calc(16px * var(--u-fs,1));font-weight:850;margin-top:1px}
+
+/* trays & keys */
+.tray{margin-top:9px;border-radius:16px;padding:7px 7px 8px;background:var(--tray);box-shadow:inset 0 3px 9px var(--sh),0 1px 0 var(--edge)}
+.tray .cap{display:flex;justify-content:space-between;padding:0 4px 5px;font-size:calc(9px * var(--u-fs,1))}
+.tray .cap em{font-style:normal;letter-spacing:.2px;text-transform:none;color:var(--Tdim)}
+.krow{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:6px}
+.key{position:relative;min-height:46px;border:0;border-radius:11px;font-size:calc(13px * var(--u-fs,1));font-weight:850;color:var(--Tk);padding:0 4px;
+  background:linear-gradient(180deg,var(--k1),var(--k2));box-shadow:inset 0 1px 0 var(--hl),0 3px 0 var(--lip);transition:transform .07s,box-shadow .07s,color .15s}
+.key:active{transform:translateY(2px);box-shadow:inset 0 1px 0 var(--hl),0 1px 0 var(--lip)}
+.key.on{color:var(--Tb);background:var(--brand);transform:translateY(1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 2px 0 var(--blip),0 0 14px var(--bglow)}
+.lkey{padding-top:8px}
+.lkey i{position:absolute;top:6px;left:50%;transform:translateX(-50%);width:16px;height:4px;border-radius:3px;background:var(--sh);box-shadow:inset 0 1px 2px rgba(0,0,0,.4)}
+.lkey small{display:block;font-size:calc(9.5px * var(--u-fs,1));color:var(--Tdim);font-weight:750;margin-top:1px}
+.lkey[aria-pressed="true"]{color:var(--Ttxt)}
+.lkey[aria-pressed="true"] i{background:var(--led);box-shadow:0 0 8px var(--led),0 0 1px #000}
+.lkey[aria-pressed="true"] small{color:var(--Tsub)}
+.sep{width:2px;border-radius:2px;background:var(--sh);box-shadow:1px 0 0 var(--edge);margin:4px 1px}
+.krow.tax{grid-template-columns:1.1fr .8fr .8fr 2px 1fr 1fr;grid-auto-flow:row}
+
+/* inputs */
+.inputs{display:grid;grid-template-columns:1fr 1.25fr;gap:7px}
+.well{display:flex;align-items:center;min-width:0;height:54px;border-radius:12px;padding:0 4px 0 10px;background:var(--well);
+  box-shadow:inset 0 3px 7px var(--sh),0 1px 0 var(--edge);transition:box-shadow .15s}
+.well:focus-within{box-shadow:inset 0 3px 7px var(--sh),0 0 0 2px var(--bglow),0 0 12px var(--bglow)}
+.well .pre{font-size:calc(18px * var(--u-fs,1));font-weight:800;color:var(--Tsub);margin-right:2px}
+.well input{flex:1;min-width:0;width:100%;height:100%;border:0;outline:0;background:transparent;font-size:calc(22px * var(--u-fs,1));font-weight:850;letter-spacing:-.4px;text-align:right;padding-right:6px;color:var(--Ttxt)}
+.well input::placeholder{color:var(--Tdim)}
+.unit{flex:none;min-height:42px;min-width:50px;font-size:calc(11.5px * var(--u-fs,1))}
+.unit span{display:block;font-size:calc(8px * var(--u-fs,1));color:var(--Tdim);letter-spacing:.5px;margin-top:1px}
+.inputs .cap{padding:0 4px 5px;display:block}
+.ckey{display:flex;align-items:center;justify-content:center;gap:3px}
+.ckey input{display:none;width:34px;height:30px;border:0;outline:0;border-radius:7px;text-align:center;font-size:calc(16px * var(--u-fs,1));font-weight:900;background:rgba(0,0,0,.28);box-shadow:inset 0 2px 4px rgba(0,0,0,.45);color:#fff}
+.ckey.on input{display:block}
+.ckey.on .ctxt{font-size:calc(11px * var(--u-fs,1))}
+
+/* drawers */
+.more{margin:16px 4px 6px;font-size:calc(9.5px * var(--u-fs,1));letter-spacing:1.3px;text-transform:uppercase;color:var(--Tdim);font-weight:850}
+details.drawer{margin-top:9px;border-radius:15px;background:linear-gradient(180deg,var(--d1),var(--d2));box-shadow:inset 0 1px 0 var(--hl),0 3px 0 var(--lip)}
+details.drawer summary{list-style:none;display:flex;align-items:center;gap:8px;padding:12px;min-height:50px;font-size:calc(13.5px * var(--u-fs,1));font-weight:850}
+details.drawer summary::-webkit-details-marker{display:none}
+summary .meta{font-size:calc(11.5px * var(--u-fs,1));color:var(--Tsub);font-weight:700}
+summary .chev{margin-left:auto;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--tray);box-shadow:inset 0 2px 4px var(--sh);color:var(--Tsub);transition:transform .2s}
+details[open] summary .chev{transform:rotate(180deg)}
+.dbody{padding:0 12px 12px}
+.frow{display:flex;justify-content:space-between;align-items:center;min-height:38px;font-size:calc(13px * var(--u-fs,1));color:var(--Tsub);font-weight:650;box-shadow:inset 0 -1px 0 var(--sh)}
+.frow:last-child{box-shadow:none}
+.frow b{color:var(--Ttxt);font-weight:850}
+.frow.off{opacity:.4}
+.frow em{font-style:normal;font-size:calc(10px * var(--u-fs,1));color:var(--Tdim);font-weight:750;margin-left:6px}
+.fhead{margin:10px 0 0;font-size:calc(10px * var(--u-fs,1));letter-spacing:1.2px;text-transform:uppercase;color:var(--Tdim);font-weight:850}
+.cur{display:flex;justify-content:flex-end}
+.cur .krow{width:120px;padding:4px;border-radius:11px;background:var(--tray);box-shadow:inset 0 2px 6px var(--sh)}
+.cur .key{min-height:30px;font-size:calc(11px * var(--u-fs,1))}
+.preview{white-space:pre-wrap;font-size:calc(12.5px * var(--u-fs,1));line-height:1.5;color:var(--Ttxt);background:var(--well);border-radius:12px;padding:12px;box-shadow:inset 0 3px 7px var(--sh)}
+.usage-explain{font-size:calc(12px * var(--u-fs,1));line-height:1.5;color:var(--Tsub);margin:0 0 10px}
+.usage-insights{font-size:calc(12px * var(--u-fs,1));color:var(--Tsub);line-height:1.5;margin-top:10px}
+.urow{display:flex;align-items:center;justify-content:space-between;font-size:calc(13px * var(--u-fs,1));font-weight:800}
+.urow input{width:22px;height:22px}
+.ubtns{margin-top:10px}
+
+/* dock */
+.dock{position:fixed;z-index:40;left:50%;bottom:calc(8px + env(safe-area-inset-bottom) + var(--keyboard-gap,0px));transform:translateX(-50%);
+  width:min(540px,calc(100% - 16px));padding:7px;border-radius:20px;background:var(--dock);backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 var(--hl),0 10px 26px rgba(0,0,0,.35)}
+.copy{width:100%;height:54px;border:0;border-radius:14px;color:var(--Tb);font-size:calc(15.5px * var(--u-fs,1));font-weight:900;background:var(--brand);
+  display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:inset 0 2px 0 rgba(255,255,255,.35),0 5px 0 var(--blip),0 10px 18px var(--bglow);transition:transform .07s,box-shadow .07s,opacity .2s}
+.copy:active{transform:translateY(4px);box-shadow:inset 0 2px 0 rgba(255,255,255,.3),0 1px 0 var(--blip)}
+.copy.dim{opacity:.45;box-shadow:0 5px 0 var(--lip)}
+.copy svg{width:19px;height:19px}
+.toast{position:fixed;left:50%;bottom:calc(86px + env(safe-area-inset-bottom));transform:translate(-50%,14px);opacity:0;z-index:70;pointer-events:none;
+  background:var(--Ttxt);color:var(--chrome);padding:9px 15px;border-radius:99px;font-size:calc(12px * var(--u-fs,1));font-weight:850;box-shadow:0 10px 25px rgba(0,0,0,.35);transition:.2s}
 .toast.show{opacity:1;transform:translate(-50%,0)}
+:focus-visible{outline:2px solid var(--Ttxt);outline-offset:2px}
 
-/* Always-reachable Copy Summary, kept above the keyboard when it appears. */
-.action-dock{
-  position:fixed;z-index:40;left:50%;bottom:calc(9px + env(safe-area-inset-bottom) + var(--keyboard-gap, 0px));
-  transform:translateX(-50%);width:min(740px,calc(100% - 20px));
-  padding:8px;background:rgba(255,255,255,.96);border:1px solid #dce7f4;
-  border-radius:19px;box-shadow:0 8px 26px rgba(23,47,105,.20)
-}
-.action-dock .copy{margin:0;min-height:52px;height:52px;font-size:15px}
-.action-dock .copy:focus-visible{outline:3px solid #0a58c4;outline-offset:2px}
-#paymentSummary{scroll-margin-top:12px}
-.roi-per-dollar{
-  color:#15784b;font-size:12.5px;font-weight:750;line-height:1.45;
-  padding:8px 4px 0
-}
-.usage-explain{font-size:12px;line-height:1.5;color:#52647f;margin:0 0 12px}
-.usage-line{display:flex;gap:12px;align-items:center;justify-content:space-between}
-.usage-state{font-size:12px;font-weight:750;color:#475d7c}
-.usage-buttons{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px}
-.usage-buttons button{
-  flex:1;min-width:96px;min-height:46px;border:1px solid #d0ddec;
-  border-radius:11px;background:#f2f7ff;color:#28466b;
-  font-size:12px;font-weight:850;padding:9px
-}
-.usage-buttons button:disabled{opacity:.48}
-.usage-buttons #usageShareBtn{background:#e7efff;color:#155ac1}
-.usage-insights{font-size:12px;color:#475d7c;line-height:1.5;margin-top:10px}
-@media (max-width:360px){.usage-buttons button{min-width:88px}}
+/* ================= THEME PICKER SHEET ================= */
+.scrim{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .2s}
+.scrim.open{opacity:1;pointer-events:auto}
+.sheet{position:fixed;z-index:61;left:50%;bottom:0;width:min(560px,100%);max-height:86vh;overflow:auto;transform:translate(-50%,105%);transition:transform .28s cubic-bezier(.2,.9,.3,1.1);
+  border-radius:24px 24px 0 0;padding:10px 12px calc(14px + env(safe-area-inset-bottom));background:var(--d1);color:var(--Ttxt);box-shadow:0 -10px 40px rgba(0,0,0,.4)}
+.sheet.open{transform:translate(-50%,0)}
+.grab{width:42px;height:5px;border-radius:5px;background:var(--sh);margin:2px auto 10px}
+.sheet-head{display:flex;align-items:center;justify-content:space-between;margin:0 4px 10px}
+.sheet-head h2{margin:0;font-size:calc(17px * var(--u-fs,1));font-weight:900}
+.sheet-head p{margin:2px 0 0;font-size:calc(11.5px * var(--u-fs,1));color:var(--Tsub);font-weight:650}
+.swatches{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.sw{position:relative;border:0;padding:0;border-radius:16px;overflow:hidden;text-align:left;background:var(--bg);color:var(--Ttxt);
+  box-shadow:inset 0 1px 0 var(--hl),0 4px 0 var(--lip),0 8px 14px rgba(0,0,0,.18);transition:transform .08s}
+.sw:active{transform:translateY(3px)}
+.sw .mini{padding:8px}
+.sw .mdisp{height:38px;border-radius:9px;background:var(--disp);box-shadow:inset 0 2px 6px rgba(0,0,0,.6),0 0 0 3px var(--bez1);display:flex;align-items:center;padding:0 9px;
+  font-weight:900;font-size:calc(15px * var(--u-fs,1));letter-spacing:-.4px}
+.sw .mdisp span{background:linear-gradient(180deg,var(--t1),var(--t2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sw .mkeys{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:5px;margin-top:8px;padding:4px;border-radius:9px;background:var(--tray);box-shadow:inset 0 2px 5px var(--sh)}
+.sw .mkeys i{height:17px;border-radius:5px;background:linear-gradient(180deg,var(--k1),var(--k2));box-shadow:0 2px 0 var(--lip)}
+.sw .mkeys i:first-child{background:var(--brand);box-shadow:0 2px 0 var(--blip),0 0 8px var(--bglow)}
+.sw .mled{position:absolute;top:13px;right:14px;width:7px;height:7px;border-radius:50%;background:var(--led);box-shadow:0 0 6px var(--led)}
+.sw .mname{display:flex;align-items:center;justify-content:space-between;padding:7px 10px 9px;font-size:calc(12.5px * var(--u-fs,1));font-weight:850}
+.sw .tick{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:calc(12px * var(--u-fs,1));background:var(--brand);color:var(--Tb);opacity:0;transform:scale(.5);transition:.15s}
+.sw[aria-pressed="true"]{outline:3px solid var(--Ttxt);outline-offset:2px}
+.sw[aria-pressed="true"] .tick{opacity:1;transform:scale(1)}
+.sheet .done{margin-top:12px}
+.sheet .dbtn{width:100%;height:50px;border:0;border-radius:14px;font-size:calc(15px * var(--u-fs,1));font-weight:900;color:var(--Tb);background:var(--brand);box-shadow:inset 0 2px 0 rgba(255,255,255,.35),0 4px 0 var(--blip)}
+.sheet .dbtn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--blip)}
+.shuffle{height:36px;padding:0 12px;border:0;border-radius:11px;font-size:calc(12px * var(--u-fs,1));font-weight:850;color:var(--Tk);background:linear-gradient(180deg,var(--k1),var(--k2));box-shadow:inset 0 1px 0 var(--hl),0 3px 0 var(--lip)}
 
-@media(max-width:520px){
-  .app{padding-left:8px;padding-right:8px}
-  .header{margin-left:-8px;margin-right:-8px;padding-left:13px;padding-right:13px;border-radius:0 0 25px 25px}
-  .logo{width:59px;height:59px}.brand h1{font-size:23px}.brand p{font-size:12px}.reset{padding:8px 10px}
-  .card{padding:13px;border-radius:18px}
-  .inputs{grid-template-columns:1fr 1.32fr .76fr;gap:6px}
-  .field label,.label{font-size:10.5px}.input-box{height:43px}.unit{width:58px;min-width:58px;font-size:10.5px}
-  input,select{font-size:14px;padding-left:8px;padding-right:7px}.prefix{width:31px;min-width:31px;font-size:17px}
-  .delivery-grid{grid-template-columns:minmax(0,1fr) 126px;gap:7px}.segment button{font-size:11px}
-  .helper-chip{display:none}.total-row .name{font-size:17px}.total-row .value{font-size:24px}
-  .fee-columns{grid-template-columns:1fr;gap:2px}
-  .fee-group h3{margin-top:10px}
+
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:5px;margin:0 0 12px;border-radius:13px;background:var(--tray);box-shadow:inset 0 2px 6px var(--sh)}
+.tabs .key{min-height:38px}
+.group-h{margin:14px 4px 8px;font-size:calc(10px * var(--u-fs,1));letter-spacing:1.3px;text-transform:uppercase;color:var(--Tsub);font-weight:850}
+.group-h:first-child{margin-top:0}
+.group-note{margin:-4px 4px 10px;font-size:calc(11px * var(--u-fs,1));color:var(--Tdim);line-height:1.4;font-weight:650}
+.sw .msrc{display:block;font-size:calc(9.5px * var(--u-fs,1));font-weight:750;opacity:.7;margin-top:1px}
+.pane[hidden]{display:none}
+.sheet.custom-mode{max-height:52vh}
+.scrim.light{background:transparent}
+.ctl{padding:10px 12px 12px;border-radius:15px;margin-bottom:9px;background:var(--tray);box-shadow:inset 0 2px 7px var(--sh),0 1px 0 var(--edge)}
+.ctl-h{display:flex;justify-content:space-between;align-items:baseline;font-size:calc(13px * var(--u-fs,1));font-weight:850;margin-bottom:8px}
+.ctl-h output{font-size:calc(11.5px * var(--u-fs,1));color:var(--Tsub);font-weight:800;font-variant-numeric:tabular-nums}
+.ctl-ends{display:flex;justify-content:space-between;font-size:calc(10px * var(--u-fs,1));color:var(--Tdim);font-weight:750;margin-top:4px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:30px;background:transparent;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:10px;border-radius:10px;background:var(--well);box-shadow:inset 0 2px 4px var(--sh),0 1px 0 var(--edge)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;margin-top:-9px;border-radius:50%;border:0;
+  background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.75),transparent 45%),var(--brand);box-shadow:0 3px 0 var(--blip),0 4px 10px var(--bglow)}
+input[type=range]::-moz-range-track{height:10px;border-radius:10px;background:var(--well)}
+input[type=range]::-moz-range-thumb{width:28px;height:28px;border-radius:50%;border:0;background:var(--brand)}
+#ctl-shade input{--fill:linear-gradient(90deg,#fff,#888 50%,#000)}
+.hue-track input[type=range]::-webkit-slider-runnable-track{background:linear-gradient(90deg,#f43f5e,#f59e0b,#22c55e,#06b6d4,#6366f1,#d946ef,#f43f5e)}
+.cbtns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+
+/* ===== alignment fixes ===== */
+.logo{background:transparent;box-shadow:0 2px 0 var(--lip),0 4px 10px rgba(0,0,0,.18)}
+.logo img{left:0;top:0;width:100%;height:100%;transform:none;object-fit:cover}
+.bezel{padding:6px;background:linear-gradient(180deg,var(--bez1),var(--bez2));border:1px solid rgba(255,255,255,.25);
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.08),0 8px 18px rgba(0,0,0,.22)}
+.display{padding:12px 14px;box-shadow:inset 0 2px 10px rgba(0,0,0,.45)}
+.d1{align-items:center}
+.profit-mini{align-self:flex-end;padding-bottom:4px}
+.split{align-items:end}
+.split div+div{padding-left:12px}
+
+/* ===== per-card colours ===== */
+.secs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.secs .key{min-height:36px;padding:0 11px;font-size:calc(12px * var(--u-fs,1))}
+.chip.any{background:conic-gradient(#f43f5e,#f59e0b,#22c55e,#06b6d4,#6366f1,#d946ef,#f43f5e);overflow:hidden}
+.chip.any input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer}
+.chip-lab{font-size:calc(10px * var(--u-fs,1));color:var(--Tdim);font-weight:800;letter-spacing:.8px;text-transform:uppercase;margin:10px 2px 6px}
+.chip-lab:first-of-type{margin-top:0}
+.sec-flash{outline:3px dashed var(--Ttxt)!important;outline-offset:3px;transition:outline-color .3s}
+.scrim.light{pointer-events:none}
+body.sheet-custom .app{padding-bottom:62vh}
+@media (max-height:700px){
+  .total{font-size:calc(30px * var(--u-fs,1))}.split b{font-size:calc(14.5px * var(--u-fs,1))}.display{padding:8px 12px}
+  .key{min-height:42px}.well{height:48px}.tray{margin-top:7px}
 }
-@media(max-width:360px){
-  .brand h1{font-size:20px}.brand p{font-size:11px}.logo{width:54px;height:54px}
-  .inputs{grid-template-columns:1fr 1.25fr .72fr}.unit{width:53px;min-width:53px}
-  .delivery-grid{grid-template-columns:1fr}.custom-field{margin-top:2px}
-}
+
+/* ================= MUTED + GLASS FINISH ================= */
+/* Soften every theme ~20% so colours are less loud */
+html{filter:saturate(calc(var(--mute,.8) * var(--u-sat,1))) hue-rotate(var(--u-hue,0deg)) brightness(var(--u-bright,1))}
+.logo img{filter:hue-rotate(calc(var(--u-hue,0deg) * -1))}
+.key.on,.copy,.theme-btn,.sheet .dbtn{box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 3px 0 var(--blip),0 4px 10px color-mix(in srgb,var(--bglow) 45%,transparent)}
+.copy{box-shadow:inset 0 2px 0 rgba(255,255,255,.35),0 5px 0 var(--blip),0 8px 16px color-mix(in srgb,var(--bglow) 50%,transparent)}
+.led.on i,.lkey[aria-pressed="true"] i{box-shadow:0 0 5px var(--led)}
+
+/* Soft colour blobs behind everything so the glass has something to show through */
+body{position:relative;isolation:isolate}
+body:after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:var(--u-shade,transparent);transition:background .15s}
+body:before{content:"";position:fixed;inset:-10%;z-index:-1;pointer-events:none;
+  background:radial-gradient(35% 25% at 15% 30%,color-mix(in srgb,var(--bez1) 55%,transparent),transparent 70%),
+             radial-gradient(30% 22% at 85% 55%,color-mix(in srgb,var(--blip) 45%,transparent),transparent 70%),
+             radial-gradient(40% 25% at 30% 85%,color-mix(in srgb,var(--bez2) 45%,transparent),transparent 70%);
+  filter:blur(30px)}
+
+/* Frosted glass trays */
+.tray{
+  background:linear-gradient(160deg,rgba(255,255,255,.16) 0%,rgba(255,255,255,.03) 45%,rgba(255,255,255,0) 100%),
+             color-mix(in srgb,var(--tray) var(--u-glass,62%),transparent);
+  -webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 3px 9px color-mix(in srgb,var(--sh) 70%,transparent),0 6px 16px rgba(0,0,0,.12)}
+
+/* Glossy glass keys: highlight across the top half */
+.key,.icon-key,.copy,.sheet .dbtn,.shuffle{overflow:hidden}
+.key:after,.icon-key:after,.copy:after,.sheet .dbtn:after,.shuffle:after{
+  content:"";position:absolute;left:2px;right:2px;top:1px;height:48%;border-radius:9px 9px 14px 14px / 9px 9px 6px 6px;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,.06))}
+.icon-key,.copy,.sheet .dbtn,.shuffle{position:relative}
+.key.on:after,.copy:after,.theme-btn:after{background:linear-gradient(180deg,rgba(255,255,255,.45),rgba(255,255,255,.08))}
+.key{border:1px solid rgba(255,255,255,.10)}
+
+/* Result screen: curved glass reflection + glass bezel rim */
+.bezel{background:linear-gradient(180deg,color-mix(in srgb,var(--bez1) 85%,#fff 15%),var(--bez2));border:1px solid rgba(255,255,255,.22)}
+.display:after{background:
+  linear-gradient(170deg,rgba(255,255,255,.16) 0%,rgba(255,255,255,.05) 38%,transparent 38.5%),
+  radial-gradient(120% 60% at 50% -30%,rgba(255,255,255,.10),transparent 60%)}
+
+/* Number wells: glass inset with a thin light edge */
+.well{border:1px solid rgba(255,255,255,.10);background:linear-gradient(180deg,rgba(0,0,0,.06),transparent 40%),var(--well)}
+
+/* Drawers, dock and theme sheet: frosted glass */
+details.drawer{background:linear-gradient(160deg,rgba(255,255,255,.14),rgba(255,255,255,0) 50%),color-mix(in srgb,var(--d1) calc(var(--u-glass,62%) + 8%),transparent);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.14)}
+.dock{background:linear-gradient(160deg,rgba(255,255,255,.16),rgba(255,255,255,0) 60%),color-mix(in srgb,var(--dock) calc(var(--u-glass,62%) + 8%),transparent);
+  -webkit-backdrop-filter:blur(18px) saturate(150%);backdrop-filter:blur(18px) saturate(150%);border:1px solid rgba(255,255,255,.18)}
+.sheet{background:linear-gradient(170deg,rgba(255,255,255,.14),rgba(255,255,255,0) 40%),color-mix(in srgb,var(--d1) 80%,transparent);
+  -webkit-backdrop-filter:blur(22px) saturate(150%);backdrop-filter:blur(22px) saturate(150%);border-top:1px solid rgba(255,255,255,.25)}
+.sw{border:1px solid rgba(255,255,255,.18)}
+
+/* ===== user text settings ===== */
+.brand h1,.brand p{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.d1{flex-wrap:wrap;row-gap:4px}
+.d1>div:first-child{min-width:0}
+.profit-mini{margin-left:auto}
+
+[data-theme]{--Ttxt:color-mix(in srgb,color-mix(in srgb,var(--txt),var(--u-tcol,#808080) var(--u-tamt,0%)),var(--u-dkc,#000) var(--u-dk,0%));--Tsub:color-mix(in srgb,color-mix(in srgb,var(--sub),var(--u-tcol,#808080) var(--u-tamt,0%)),var(--u-dkc,#000) var(--u-dk,0%));--Tdim:color-mix(in srgb,color-mix(in srgb,var(--dim),var(--u-tcol,#808080) var(--u-tamt,0%)),var(--u-dkc,#000) var(--u-dk,0%));--Tk:color-mix(in srgb,color-mix(in srgb,var(--ktxt),var(--u-tcol,#808080) var(--u-tamt,0%)),var(--u-dkc,#000) var(--u-dk,0%))}
+.sec-h{margin:16px 4px 8px;font-size:calc(10px * var(--u-fs,1));letter-spacing:1.3px;text-transform:uppercase;color:var(--Tsub);font-weight:850}
+.sec-h:first-child{margin-top:2px}
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chip{width:38px;height:38px;border-radius:50%;border:2px solid rgba(255,255,255,.7);padding:0;position:relative;
+  box-shadow:0 3px 0 var(--lip),inset 0 -3px 6px rgba(0,0,0,.25),inset 0 3px 4px rgba(255,255,255,.35)}
+.chip[data-c=""]{background:conic-gradient(var(--txt) 0 50%,var(--sub) 0)}
+.chip[aria-pressed="true"]{outline:3px solid var(--Ttxt);outline-offset:2px}
+.chip[aria-pressed="true"]:after{content:"✓";position:absolute;inset:0;display:grid;place-items:center;font-weight:900;color:#fff;text-shadow:0 0 3px #000}
+.tsample{margin-top:10px;padding:10px 12px;border-radius:12px;background:var(--well);box-shadow:inset 0 2px 5px var(--sh)}
+.tsample b{display:block;font-size:calc(16px * var(--u-fs,1));color:var(--Ttxt)}
+.tsample span{font-size:calc(12px * var(--u-fs,1));color:var(--Tsub)}
+
+/* ===== button text controls ===== */
+[data-theme]{--Tk:color-mix(in srgb,color-mix(in srgb,var(--ktxt),var(--u-kcol,#808080) var(--u-kamt,0%)),var(--u-kdkc,#000) var(--u-kdk,0%));--Tb:var(--u-btxt,var(--btxt))}
+.key.off{opacity:var(--u-offop,.45)}
+.frow.off{opacity:var(--u-offop,.45)}
+.ksample{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px;padding:5px;border-radius:12px;background:var(--tray);box-shadow:inset 0 2px 5px var(--sh)}
+.ksample .key{min-height:38px;pointer-events:none;display:grid;place-items:center}
+.resetall{width:100%;margin-top:14px;min-height:50px;border:0;border-radius:14px;font-size:calc(14px * var(--u-fs,1));font-weight:900;
+  color:#b42318;background:linear-gradient(180deg,#fff,#fdeceb);box-shadow:inset 0 1px 0 #fff,0 3px 0 #e8b4b0}
+.resetall.armed{color:#fff;background:linear-gradient(180deg,#ef4444,#b91c1c);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 3px 0 #7f1d1d}
 </style>
 </head>
 <body>
 <div class="app">
-  <header class="header">
-    <div class="header-row">
-      <span class="logo"><img src="byso_logo.png" alt="BYSO logo"></span>
-      <div class="brand">
-        <h1>BYSO JetPak Quote</h1>
-        <p>Online Shopping Cost Calculator</p>
+  <div class="top" data-insight-section="header">
+    <span class="logo"><img src="byso_logo_round.png" alt="BYSO logo"></span>
+    <div class="brand"><h1>JetPak Quote</h1><p>Buy Your Stuff Online</p></div>
+    <button class="icon-key theme-btn" id="themeBtn" type="button" aria-label="Change colour theme" aria-haspopup="dialog">🎨</button>
+    <button class="icon-key" id="resetBtn" type="button" aria-label="Reset quote">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>Reset</button>
+  </div>
+
+  <!-- RESULT -->
+  <div class="bezel" id="paymentSummary" data-insight-section="payment summary">
+    <div class="display" aria-live="polite">
+      <div class="d1">
+        <div><div class="cap"><span class="led" id="readyLed"><i></i>Total estimate</span></div>
+          <div class="total num empty" id="totalEstimate">TT$0.00</div></div>
+        <div class="profit-mini"><small>PROFIT · ROI</small><span class="num" id="profit">—</span></div>
       </div>
-      <button class="reset" id="resetBtn" type="button">↻&nbsp; Reset</button>
+      <div class="groove"></div>
+      <div class="split">
+        <div><span>1st · pay online</span><b class="num" id="payOnline">—</b></div>
+        <div><span>2nd · JetPak on delivery</span><b class="num" id="payJetpak">—</b></div>
+      </div>
     </div>
-  </header>
+  </div>
 
-  <section class="card" data-insight-section="order">
-    <div class="section-head">
-      <span class="section-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3 8 4-8 4-8-4 8-4Z"/><path d="m4 7 8 4 8-4M4 7v10l8 4 8-4V7M12 11v10"/></svg>
-      </span>
-      <div class="section-title"><h2>Order Details</h2></div>
-      <span class="helper-chip">Estimate your landed cost</span>
-    </div>
-
+  <!-- WEIGHT + COST -->
+  <div class="tray" data-insight-section="weight and cost">
     <div class="inputs">
-      <div class="field">
-        <label for="weight">Weight</label>
-        <div class="input-box">
-          <input id="weight" inputmode="decimal" placeholder="" autocomplete="off">
-          <select id="weightUnit" class="unit" aria-label="Weight unit"><option value="lbs">LBS</option><option value="kg">KG</option></select>
-        </div>
-      </div>
-      <div class="field">
-        <label for="onlineCost">Online Cost</label>
-        <div class="input-box">
-          <span class="prefix" id="currencySymbol">$</span>
-          <input id="onlineCost" inputmode="decimal" placeholder="" autocomplete="off">
-          <select id="costUnit" class="unit" aria-label="Cost currency"><option value="USD">USD</option><option value="GBP">GBP</option></select>
-        </div>
-      </div>
-      <div class="field rate">
-        <label for="streetRate">Rate</label>
-        <div class="input-box"><select id="streetRate"><option value="9" selected>9.0</option><option value="10">10.0</option><option value="10.5">10.50</option></select></div>
-      </div>
+      <div><span class="cap">Weight</span>
+        <div class="well"><input id="weight" class="num" inputmode="decimal" placeholder="0" autocomplete="off" aria-label="Weight">
+          <button class="key unit" id="wUnitBtn" type="button" aria-label="Switch weight unit">LBS<span>⇄ KG</span></button></div></div>
+      <div><span class="cap">Online cost</span>
+        <div class="well"><span class="pre" id="currencySymbol">$</span><input id="onlineCost" class="num" inputmode="decimal" placeholder="0.00" autocomplete="off" aria-label="Online cost">
+          <button class="key unit" id="cUnitBtn" type="button" aria-label="Switch cost currency">USD<span>⇄ GBP</span></button></div></div>
     </div>
+  </div>
 
-    <div class="tax-shortcuts" role="group" aria-labelledby="taxShortcutsTitle">
-      <div class="tax-shortcuts-head" id="taxShortcutsTitle">Taxes &amp; Duties — quick switches</div>
-      <div class="tax-shortcuts-grid">
-        <label class="tax-shortcut"><span>Duty</span><span class="toggle"><input id="includeDuty" type="checkbox" checked><span class="track"></span></span></label>
-        <label class="tax-shortcut"><span>VAT (12.5%)</span><span class="toggle"><input id="includeVat" type="checkbox" checked><span class="track"></span></span></label>
-        <label class="tax-shortcut"><span>Online Tax (7%)</span><span class="toggle"><input id="includeOpt" type="checkbox" checked><span class="track"></span></span></label>
-      </div>
-      <div class="tax-duty-controls">
-        <span>Customs duty rate</span>
-        <span class="duty-pills" role="group" aria-label="Customs duty rate">
-          <button type="button" data-duty="20" class="active">20%</button><button type="button" data-duty="30">30%</button>
-        </span>
-      </div>
+  <!-- RATE -->
+  <div class="tray" data-insight-section="rate">
+    <div class="cap"><span>Your rate</span><em>TT$ per US$1</em></div>
+    <div class="krow" role="group" aria-label="Rate">
+      <button class="key" data-rate="9" type="button">9.00</button><button class="key" data-rate="10" type="button">10.00</button><button class="key" data-rate="10.5" type="button">10.50</button>
     </div>
+  </div>
 
-    <div class="delivery-wrap">
-      <div class="delivery-grid">
-        <div>
-          <span class="label">Delivery to Miami</span>
-          <div class="segment">
-            <button type="button" class="delivery active" data-days="3">3 Days</button>
-            <button type="button" class="delivery" data-days="12">12 Days</button>
-            <button type="button" class="delivery" data-days="custom">Custom</button>
-          </div>
-        </div>
-        <div class="field custom-field">
-          <label for="customDays">Custom days</label>
-          <div class="input-box"><input id="customDays" inputmode="numeric" placeholder=""><span class="unit" style="display:grid;place-items:center;border-left:1px solid #dde6f1">days</span></div>
-        </div>
-      </div>
-      <div class="amazon">
-        <label class="toggle" aria-label="Amazon limited-time deal"><input id="limitedDeal" type="checkbox"><span class="track"></span></label>
-        <span>🏷️&nbsp; Amazon Limited-Time Deal</span>
-      </div>
+  <!-- TAXES -->
+  <div class="tray" data-insight-section="taxes">
+    <div class="cap"><span>Taxes &amp; duties</span><em>tap to switch on / off</em></div>
+    <div class="krow tax">
+      <button class="key lkey" type="button" data-tax="includeDuty" aria-pressed="true"><i></i>Duty</button>
+      <button class="key" data-duty="20" type="button" aria-label="Duty 20%">20%</button>
+      <button class="key" data-duty="30" type="button" aria-label="Duty 30%">30%</button>
+      <span class="sep" aria-hidden="true"></span>
+      <button class="key lkey" type="button" data-tax="includeVat" aria-pressed="true"><i></i>VAT<small>12.5%</small></button>
+      <button class="key lkey" type="button" data-tax="includeOpt" aria-pressed="true"><i></i>Online<small>7%</small></button>
     </div>
-  </section>
+  </div>
 
-  <section class="card" id="paymentSummary" data-insight-section="payment">
-    <div class="section-head">
-      <span class="section-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2.5" width="14" height="19" rx="2"/><path d="M8 6h8M8 10h2M12 10h2M16 10h0M8 14h2M12 14h2M16 14h0M8 18h2M12 18h2M16 18h0"/></svg>
-      </span>
-      <div class="section-title"><h2>Payment Summary</h2></div>
-      <span class="helper-chip">All amounts in TTD</span>
+  <!-- DELIVERY -->
+  <div class="tray" data-insight-section="delivery">
+    <div class="cap"><span>Delivery to Miami</span><em id="dealHint"></em></div>
+    <div class="krow" role="group" aria-label="Delivery to Miami">
+      <button class="key delivery" data-days="3" type="button">3 days</button>
+      <button class="key delivery" data-days="12" type="button">12 days</button>
+      <button class="key delivery ckey" data-days="custom" type="button"><input id="customDays" class="num" inputmode="numeric" placeholder="0" aria-label="Custom days"><span class="ctxt">Custom</span></button>
+      <button class="key lkey" id="limitedDeal" type="button" aria-pressed="false"><i></i>🏷️ Deal<small>Amazon</small></button>
     </div>
+  </div>
 
-    <div class="payment-box">
-      <div class="pay-row"><span class="name">1st Payment (Online)</span><span class="value" id="payOnline">—</span></div>
-      <div class="pay-row"><span class="name">JetPak Charge (rounded)</span><span class="value" id="payJetpak">—</span></div>
-      <div class="total-row"><span class="name">Total Estimate</span><span class="value" id="totalEstimate">—</span></div>
+  <!-- BELOW THE FOLD -->
+  <div class="more">More</div>
+  <details class="drawer">
+    <summary>Fee breakdown <span class="meta num" id="feesMeta"></span><span class="chev">⌄</span></summary>
+    <div class="dbody">
+      <div class="cur"><div class="krow" role="group" aria-label="Fee currency"><button class="key" id="usdBtn" type="button">USD</button><button class="key on" id="ttdBtn" type="button">TTD</button></div></div>
+      <div class="fhead">JetPak fees</div>
+      <div class="frow"><span>Freight</span><b class="num" id="freightValue">—</b></div>
+      <div class="frow"><span>Handling</span><b class="num" id="handlingValue">—</b></div>
+      <div class="frow"><span>Service fee</span><b class="num" id="serviceValue">—</b></div>
+      <div class="fhead">Government</div>
+      <div class="frow" id="dutyRow"><span>Customs duty<em id="dutyRateLabel">20%</em></span><b class="num" id="dutyValue">—</b></div>
+      <div class="frow" id="vatRow"><span>Customs VAT<em>12.5%</em></span><b class="num" id="vatValue">—</b></div>
+      <div class="frow" id="optRow"><span>Online purchase tax<em>7%</em></span><b class="num" id="optValue">—</b></div>
+      <div class="frow"><span id="roiPerDollar" style="font-size:12px;color:#7fd8ad">—</span></div>
     </div>
-    <div class="profit"><span>↗&nbsp; Profit / ROI</span><span class="right" id="profit">—</span></div>
-    <div class="roi-per-dollar" id="roiPerDollar" aria-live="polite">Enter cost and weight to see the return per TT$1 invested.</div>
-  </section>
-
-  <section class="card" data-insight-section="fees">
-    <div class="section-head fees-head">
-      <span class="section-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3 8 4-8 4-8-4 8-4Z"/><path d="m4 7 8 4 8-4M4 7v10l8 4 8-4V7M12 11v10"/></svg>
-      </span>
-      <div class="section-title">
-        <h2>Estimated Package Fees</h2>
-        <p>JetPak charges and government taxes</p>
-      </div>
-      <div class="currency"><button id="usdBtn" type="button">USD</button><button id="ttdBtn" class="active" type="button">TTD</button></div>
+  </details>
+  <details class="drawer">
+    <summary>Preview customer message <span class="chev">⌄</span></summary>
+    <div class="dbody"><div class="preview" id="preview">Enter weight and online cost to build the quote.</div></div>
+  </details>
+  <details class="drawer" id="usagePanel">
+    <summary>Usage insights <span class="meta" id="usageStatus">Off</span><span class="chev">⌄</span></summary>
+    <div class="dbody">
+      <p class="usage-explain">Optional and private. Records which controls you use, scroll patterns and time spent — never prices, weights, typed text or clipboard contents. Stored on this device only.</p>
+      <label class="urow" for="usageToggle">Record my usage <input id="usageToggle" type="checkbox"></label>
+      <div class="usage-insights" id="usageSummary" aria-live="polite">No usage recorded.</div>
+      <div class="krow ubtns"><button class="key" id="usageShareBtn" type="button">Share</button><button class="key" id="usageCopyBtn" type="button">Copy</button><button class="key" id="usageClearBtn" type="button">Clear</button></div>
     </div>
-
-    <div class="fee-columns">
-      <div class="fee-group">
-        <h3>JetPak Fees</h3>
-        <div class="fee-row"><span class="fee-name">Freight</span><span class="amount" id="freightValue">—</span></div>
-        <div class="fee-row"><span class="fee-name">Handling Charge</span><span class="amount" id="handlingValue">—</span></div>
-        <div class="fee-row"><span class="fee-name">Service Fee</span><span class="amount" id="serviceValue">—</span></div>
-      </div>
-
-      <div class="fee-group">
-        <h3>Government Fees</h3>
-        <div class="tax-row" id="dutyRow">
-          <div><div class="tax-name">Customs Duties</div><div class="tax-meta"><span class="fixed" id="dutyRateLabel">20% duty</span></div></div>
-          <span class="amount" id="dutyValue">—</span>
-        </div>
-        <div class="tax-row" id="vatRow">
-          <div><div class="tax-name">Customs V.A.T.</div><div class="tax-meta"><span class="fixed">12.5% fixed</span></div></div>
-          <span class="amount" id="vatValue">—</span>
-        </div>
-        <div class="tax-row" id="optRow">
-          <div><div class="tax-name">Online Purchase Tax</div><div class="tax-meta"><span class="fixed">7% fixed</span></div></div>
-          <span class="amount" id="optValue">—</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="card" id="usagePanel" data-insight-section="insights">
-    <div class="section-head">
-      <span class="section-icon" aria-hidden="true">↗</span>
-      <div class="section-title"><h2>Usage Insights</h2><p>Find shortcuts based on how you use this calculator</p></div>
-    </div>
-    <p class="usage-explain">Optional and private. Records which controls you use, scroll patterns and time spent — never prices, weights, typed text, passwords or clipboard contents. Stored on this device only; nothing is automatically sent anywhere.</p>
-    <div class="usage-line">
-      <label class="amazon" for="usageToggle" style="margin:0;cursor:pointer">
-        <span class="toggle"><input id="usageToggle" type="checkbox"><span class="track"></span></span>
-        <span>Record my usage</span>
-      </label>
-      <span class="usage-state" id="usageStatus">Off</span>
-    </div>
-    <div class="usage-insights" id="usageSummary" aria-live="polite">No usage recorded.</div>
-    <div class="usage-buttons">
-      <button id="usageShareBtn" type="button">Share report</button>
-      <button id="usageCopyBtn" type="button">Copy report</button>
-      <button id="usageClearBtn" type="button">Clear history</button>
-    </div>
-  </section>
+  </details>
 </div>
-<div class="action-dock" role="region" aria-label="Quick copy action">
+
+<div class="dock">
   <button class="copy dim" id="copyBtn" type="button" aria-disabled="true">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
-      Copy Summary
-  </button>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
+    Copy quote for customer</button>
+</div>
+<div class="scrim" id="scrim"></div>
+<div class="sheet" id="themeSheet" data-insight-section="colours" role="dialog" aria-modal="true" aria-labelledby="themeTitle">
+  <div class="grab"></div>
+  <div class="sheet-head"><div><h2 id="themeTitle">Colours</h2><p id="themeNow">Tap one to try it — saved automatically</p></div>
+    <button class="shuffle" id="shuffleBtn" type="button">🎲 Surprise me</button></div>
+  <div class="tabs krow" role="tablist">
+    <button class="key on" id="tabThemes" type="button" role="tab" aria-selected="true">Themes</button>
+    <button class="key" id="tabCustom" type="button" role="tab" aria-selected="false">🎚️ Customise</button>
+  </div>
+  <div class="pane" id="paneThemes">
+    <div class="group-h">Proven palettes</div><p class="group-note">Built from well-known designer colour palettes (exact official colours), checked so all text passes the WCAG readability standard.</p><div class="swatches" id="swatchesP"></div>
+    <div class="group-h">Original family</div><div class="swatches" id="swatchesA"></div>
+    <div class="group-h">Fun &amp; bold</div><div class="swatches" id="swatchesB"></div>
+    <button class="resetall" id="resetAll1" type="button">↺ Reset everything to normal</button>
+  </div>
+  <div class="pane" id="paneCustom" hidden>
+    <div class="sec-h">Card colours</div>
+    <div class="ctl"><div class="ctl-h"><span>Pick a card</span><output id="oCard">Price</output></div>
+      <div class="secs krow" id="secs" style="display:flex"></div>
+      <div class="chip-lab">Soft</div><div class="chips" id="cardSoft"></div>
+      <div class="chip-lab">Bold</div><div class="chips" id="cardBold"></div>
+      <div class="cbtns" style="margin-top:12px"><button class="key" id="cardClear" type="button">This card → theme</button><button class="key" id="cardClearAll" type="button">All cards → theme</button></div></div>
+    <div class="sec-h">Text</div>
+    <div class="ctl"><div class="ctl-h"><span>Text colour</span><output id="oTcol">Theme</output></div>
+      <div class="chips" id="chips"></div>
+      <div class="tsample"><b>TT$730.00 · Weight 4 LBS</b><span>Labels and small text look like this</span></div></div>
+    <div class="ctl"><div class="ctl-h"><label for="uDk">Text darkness</label><output id="oDk">Normal</output></div>
+      <input type="range" id="uDk" min="-70" max="70" step="5" value="0"><div class="ctl-ends"><span>Lighter</span><span>Darker</span></div></div>
+    <div class="ctl"><div class="ctl-h"><label for="uFs">Text size</label><output id="oFs">100%</output></div>
+      <input type="range" id="uFs" min="85" max="130" step="5" value="100"><div class="ctl-ends"><span>A smaller</span><span style="font-size:15px">A bigger</span></div></div>
+    <div class="ctl"><div class="ctl-h"><span>Unselected button text</span><output id="oKcol">Theme</output></div>
+      <div class="chips" id="kchips"></div>
+      <div class="ctl-h" style="margin-top:12px"><label for="uKdk">Darkness</label><output id="oKdk">Normal</output></div>
+      <input type="range" id="uKdk" min="-70" max="80" step="5" value="0"><div class="ctl-ends"><span>Lighter</span><span>Darker</span></div>
+      <div class="ksample"><span class="key on">Selected</span><span class="key">10.00</span><span class="key">12 days</span></div></div>
+    <div class="ctl"><div class="ctl-h"><span>Selected button text</span><output id="oBcol">Theme</output></div><div class="chips" id="bchips"></div></div>
+    <div class="ctl"><div class="ctl-h"><label for="uOff">Switched-off items</label><output id="oOff">45%</output></div>
+      <input type="range" id="uOff" min="20" max="100" step="5" value="45"><div class="ctl-ends"><span>Very faded</span><span>Fully clear</span></div>
+      <div class="ksample"><span class="key off">20%</span><span class="key off">30%</span><span class="key">Normal</span></div></div>
+    <div class="sec-h">Background &amp; colours</div>
+    <div class="ctl" id="ctl-shade"><div class="ctl-h"><label for="uShade">Background</label><output id="oShade">Normal</output></div>
+      <input type="range" id="uShade" min="-40" max="70" step="5" value="0"><div class="ctl-ends"><span>Lighter</span><span>Darker</span></div></div>
+    <div class="ctl"><div class="ctl-h"><label for="uSat">Colour strength</label><output id="oSat">100%</output></div>
+      <input type="range" id="uSat" min="40" max="140" step="5" value="100"><div class="ctl-ends"><span>Soft</span><span>Vivid</span></div></div>
+    <div class="ctl hue-track"><div class="ctl-h"><label for="uHue">Colour shift</label><output id="oHue">0°</output></div>
+      <input type="range" id="uHue" min="-180" max="180" step="5" value="0"><div class="ctl-ends"><span>Warmer ←</span><span>→ Cooler</span></div></div>
+    <div class="ctl"><div class="ctl-h"><label for="uGlass">Glass panels</label><output id="oGlass">62%</output></div>
+      <input type="range" id="uGlass" min="25" max="100" step="5" value="62"><div class="ctl-ends"><span>See-through</span><span>Solid</span></div></div>
+    <div class="ctl"><div class="ctl-h"><label for="uBright">Brightness</label><output id="oBright">100%</output></div>
+      <input type="range" id="uBright" min="75" max="110" step="1" value="100"><div class="ctl-ends"><span>Dimmer</span><span>Brighter</span></div></div>
+    <button class="resetall" id="resetAll2" type="button">↺ Reset everything to normal</button>
+    <div class="cbtns" style="margin-top:10px"><button class="key" id="uReset" type="button">↺ Reset sliders only</button><button class="key" id="uDoneC" type="button">Done</button></div>
+  </div>
+  <div class="done"><button class="dbtn" id="themeDone" type="button">Done</button></div>
 </div>
 <div class="toast" id="toast">Copied</div>
 
 <script>
 (() => {
   "use strict";
-  const EXCHANGE = 6.8, GBP_TO_USD = 1.30;
-  const FREIGHT = 6.79, HANDLING_MIN = 16.30, HANDLING_LIGHT = 13.44;
-  const SERVICE_MIN = 10.88, SERVICE_LIGHT = 8.98, WEIGHT_THRESHOLD = 6;
-  const HANDLING_HEAVY = 11.00, SERVICE_HEAVY = 7.34;
-  const VAT = 12.5, OPT = 7.0, PREF_KEY = "byso_quote_prefs_v2";
-  const $ = id => document.getElementById(id);
-  const state = {
-    weightLbs:null, valueUSD:null, weightUnit:"lbs", costUnit:"USD", streetRate:9,
-    deliveryMode:"3", customDays:null, limitedDeal:false, dutyRate:20,
-    includeDuty:true, includeVat:true, includeOpt:true, currencyView:"TTD"
-  };
-  const num = v => {
-    if(v === null || v === undefined || String(v).trim() === "") return null;
-    const n = parseFloat(String(v).replace(/,/g,""));
-    return Number.isFinite(n) ? n : null;
-  };
-  const round2 = n => Math.round((n + Number.EPSILON) * 100) / 100;
-  const ttd = n => "TT$" + round2(n).toFixed(2);
-  const usd = n => "US$" + round2(n).toFixed(2);
+  const EXCHANGE=6.8,GBP_TO_USD=1.30;
+  const FREIGHT=6.79,HANDLING_MIN=16.30,HANDLING_LIGHT=13.44;
+  const SERVICE_MIN=10.88,SERVICE_LIGHT=8.98,WEIGHT_THRESHOLD=6;
+  const HANDLING_HEAVY=11.00,SERVICE_HEAVY=7.34;
+  const VAT=12.5,OPT=7.0,PREF_KEY="byso_quote_prefs_v2";
+  const $=id=>document.getElementById(id), $$=s=>document.querySelectorAll(s);
+  const state={weightLbs:null,valueUSD:null,weightUnit:"lbs",costUnit:"USD",streetRate:9,
+    deliveryMode:"3",customDays:null,limitedDeal:false,dutyRate:20,
+    includeDuty:true,includeVat:true,includeOpt:true,currencyView:"TTD"};
+  const num=v=>{if(v==null||String(v).trim()==="")return null;const n=parseFloat(String(v).replace(/,/g,""));return Number.isFinite(n)?n:null};
+  const round2=n=>Math.round((n+Number.EPSILON)*100)/100;
+  const fmt=n=>round2(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+  const ttd=n=>"TT$"+fmt(n), usd=n=>"US$"+fmt(n);
 
-  function savePrefs(){
-    try{
-      localStorage.setItem(PREF_KEY,JSON.stringify({
-        weightUnit:state.weightUnit,costUnit:state.costUnit,streetRate:state.streetRate,
-        dutyRate:state.dutyRate,includeDuty:state.includeDuty,includeVat:state.includeVat,
-        includeOpt:state.includeOpt,currencyView:state.currencyView
-      }));
-    }catch(e){}
-  }
+  function savePrefs(){try{localStorage.setItem(PREF_KEY,JSON.stringify({weightUnit:state.weightUnit,costUnit:state.costUnit,streetRate:state.streetRate,dutyRate:state.dutyRate,includeDuty:state.includeDuty,includeVat:state.includeVat,includeOpt:state.includeOpt,currencyView:state.currencyView}))}catch(e){}}
   function loadPrefs(){
-    try{
-      const p=JSON.parse(localStorage.getItem(PREF_KEY)||"null");
-      if(p && typeof p==="object") Object.assign(state,p);
-    }catch(e){}
-    if(!["lbs","kg"].includes(state.weightUnit)) state.weightUnit="lbs";
-    if(!["USD","GBP"].includes(state.costUnit)) state.costUnit="USD";
-    if(![9,10,10.5].includes(Number(state.streetRate))) state.streetRate=9;
-    if(![20,30].includes(Number(state.dutyRate))) state.dutyRate=20;
-    if(!["TTD","USD"].includes(state.currencyView)) state.currencyView="TTD";
+    try{const p=JSON.parse(localStorage.getItem(PREF_KEY)||"null");if(p&&typeof p==="object")Object.assign(state,p)}catch(e){}
+    if(!["lbs","kg"].includes(state.weightUnit))state.weightUnit="lbs";
+    if(!["USD","GBP"].includes(state.costUnit))state.costUnit="USD";
+    if(![9,10,10.5].includes(Number(state.streetRate)))state.streetRate=9;
+    if(![20,30].includes(Number(state.dutyRate)))state.dutyRate=20;
+    if(!["TTD","USD"].includes(state.currencyView))state.currencyView="TTD";
   }
-
+  function roundPaymentOne(a){const i=Math.round(a),rem=((i%10)+10)%10,base=i-rem;if(rem<=3)return base;if(rem<=8)return base+5;return base+10}
   function calculate(){
-    if(state.weightLbs===null || state.valueUSD===null) return null;
-    const w=Math.max(0,state.weightLbs), value=Math.max(0,state.valueUSD);
+    if(state.weightLbs===null||state.valueUSD===null)return null;
+    const w=Math.max(0,state.weightLbs),value=Math.max(0,state.valueUSD);
     const freight=round2(FREIGHT*w);
-    const handling=w<WEIGHT_THRESHOLD ? round2(Math.max(HANDLING_MIN,HANDLING_LIGHT*w)) : round2(HANDLING_HEAVY*w);
-    const service=w<WEIGHT_THRESHOLD ? round2(Math.max(SERVICE_MIN,SERVICE_LIGHT*w)) : round2(SERVICE_HEAVY*w);
+    const handling=w<WEIGHT_THRESHOLD?round2(Math.max(HANDLING_MIN,HANDLING_LIGHT*w)):round2(HANDLING_HEAVY*w);
+    const service=w<WEIGHT_THRESHOLD?round2(Math.max(SERVICE_MIN,SERVICE_LIGHT*w)):round2(SERVICE_HEAVY*w);
     const cifTTD=round2((value+w)*EXCHANGE);
-    const duty=state.includeDuty ? round2(cifTTD*state.dutyRate/100) : 0;
-    const opt=state.includeOpt ? round2(cifTTD*OPT/100) : 0;
-    const vat=state.includeVat ? round2((cifTTD+duty+opt)*VAT/100) : 0;
+    const duty=state.includeDuty?round2(cifTTD*state.dutyRate/100):0;
+    const opt=state.includeOpt?round2(cifTTD*OPT/100):0;
+    const vat=state.includeVat?round2((cifTTD+duty+opt)*VAT/100):0;
     const packageTotal=round2(freight+handling+service+duty+vat+opt);
-    const rawOnline=round2(value*state.streetRate);
-    const payOnline=roundPaymentOne(rawOnline);
+    const payOnline=roundPaymentOne(round2(value*state.streetRate));
     const payJetpak=packageTotal===0?0:Math.ceil(packageTotal/10)*10;
-    const total=payOnline+payJetpak;
-    const profit=round2(value*(state.streetRate-EXCHANGE));
-    // ROI = net profit / actual amount invested, not profit / sale proceeds.
-    // Shipping/duty are billed as a separate second payment, so this ROI refers to merchandise funding.
-    const invested=value*EXCHANGE;
-    const roi=invested>0 ? profit/invested*100 : null;
-    const returnPerDollar=invested>0 ? state.streetRate/EXCHANGE : null;
-    return {freight,handling,service,duty,opt,vat,packageTotal,rawOnline,payOnline,payJetpak,total,profit,roi,returnPerDollar};
+    const total=payOnline+payJetpak, profit=round2(value*(state.streetRate-EXCHANGE));
+    const invested=value*EXCHANGE, roi=invested>0?profit/invested*100:null, rpd=invested>0?state.streetRate/EXCHANGE:null;
+    return {freight,handling,service,duty,opt,vat,packageTotal,payOnline,payJetpak,total,profit,roi,rpd};
   }
-  function roundPaymentOne(amount){
-    const i=Math.round(amount), rem=((i%10)+10)%10, base=i-rem;
-    if(rem<=3) return base;
-    if(rem<=8) return base+5;
-    return base+10;
-  }
-  function feeText(value){return state.currencyView==="TTD"?ttd(value):usd(value/EXCHANGE)}
-
-  function render(){
-    const r=calculate(), dash="—";
-    $("payOnline").textContent=r?ttd(r.payOnline):dash;
-    $("payJetpak").textContent=r?ttd(r.payJetpak):dash;
-    $("totalEstimate").textContent=r?ttd(r.total):dash;
-    $("profit").textContent=r?(ttd(r.profit)+"  •  "+(r.roi===null?"—":r.roi.toFixed(1)+"% ROI")):dash;
-    $("roiPerDollar").textContent=r && r.returnPerDollar!==null ? ("Every TT$1.00 invested returns TT$"+r.returnPerDollar.toFixed(2)+" (including the TT$1 invested).") : "Enter cost and weight to see the return per TT$1 invested.";
-    $("freightValue").textContent=r?feeText(r.freight):dash;
-    $("handlingValue").textContent=r?feeText(r.handling):dash;
-    $("serviceValue").textContent=r?feeText(r.service):dash;
-    $("dutyValue").textContent=r?feeText(r.duty):dash;
-    $("vatValue").textContent=r?feeText(r.vat):dash;
-    $("optValue").textContent=r?feeText(r.opt):dash;
-    $("dutyRateLabel").textContent=state.dutyRate+"% duty";
-    $("dutyRow").classList.toggle("tax-off",!state.includeDuty);
-    $("vatRow").classList.toggle("tax-off",!state.includeVat);
-    $("optRow").classList.toggle("tax-off",!state.includeOpt);
-    document.querySelectorAll("[data-duty]").forEach(b=>b.classList.toggle("active",Number(b.dataset.duty)===Number(state.dutyRate)));
-    document.querySelectorAll(".delivery").forEach(b=>b.classList.toggle("active",String(b.dataset.days)===String(state.deliveryMode)));
-    $("ttdBtn").classList.toggle("active",state.currencyView==="TTD");
-    $("usdBtn").classList.toggle("active",state.currencyView==="USD");
-    $("copyBtn").classList.toggle("dim",!r);
-    $("copyBtn").setAttribute("aria-disabled",String(!r));
-    savePrefs();
-  }
-
-  function getDeliveryDays(){
-    if(state.deliveryMode==="custom") return state.customDays;
-    return Number(state.deliveryMode);
-  }
-  function weightText(){
-    if(state.weightLbs===null) return "";
-    const displayed=state.weightUnit==="kg"?state.weightLbs/2.20462:state.weightLbs;
-    return parseFloat(displayed.toFixed(2))+" "+state.weightUnit.toUpperCase();
-  }
+  const feeText=v=>state.currencyView==="TTD"?ttd(v):usd(v/EXCHANGE);
+  function getDeliveryDays(){return state.deliveryMode==="custom"?state.customDays:Number(state.deliveryMode)}
+  function weightText(){if(state.weightLbs===null)return"";const d=state.weightUnit==="kg"?state.weightLbs/2.20462:state.weightLbs;return parseFloat(d.toFixed(2))+" "+state.weightUnit.toUpperCase()}
   function quoteText(){
-    const r=calculate(); if(!r) return "";
-    const days=getDeliveryDays(), dText=days===null?"your selected time":days+" day"+(days===1?"":"s");
-    let text="💳 (1st) Pay Buy Your Stuff Online (online banking or direct bank deposit) before the item is ordered: "+ttd(r.payOnline)+".\n\n"+
-      "🚚 (2nd) Pay the JetPak courier driver on delivery to your door (LINX ONLY): "+ttd(r.payJetpak)+" or less if the package is "+weightText()+" or less.\n\n"+
+    const r=calculate();if(!r)return"";
+    const days=getDeliveryDays(),dText=days===null?"your selected time":days+" day"+(days===1?"":"s");
+    const T=n=>"TT$"+round2(n).toFixed(2);
+    let t="💳 (1st) Pay Buy Your Stuff Online (online banking or direct bank deposit) before the item is ordered: "+T(r.payOnline)+".\n\n"+
+      "🚚 (2nd) Pay the JetPak courier driver on delivery to your door (LINX ONLY): "+T(r.payJetpak)+" or less if the package is "+weightText()+" or less.\n\n"+
       "🔥 Delivery to USA JetPak Address: "+dText+" or less.\n\n"+
       "🏠 Delivery from USA JetPak Address to your home: 7–10 days.\n\n"+
-      "➕ Total: "+ttd(r.payOnline)+" + "+ttd(r.payJetpak)+" = "+ttd(r.total)+" or less if the package is "+weightText()+" or less.";
-    if(state.limitedDeal) text+="\n\n📝 Note: Amazon has a limited-time deal on this item, so I’ll need to recheck the price based on when you’re ready to place the order.";
-    return text;
+      "➕ Total: "+T(r.payOnline)+" + "+T(r.payJetpak)+" = "+T(r.total)+" or less if the package is "+weightText()+" or less.";
+    if(state.limitedDeal)t+="\n\n📝 Note: Amazon has a limited-time deal on this item, so I’ll need to recheck the price based on when you’re ready to place the order.";
+    return t;
   }
-  function toast(msg){
-    const t=$("toast");t.textContent=msg;t.classList.add("show");
-    clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.remove("show"),1400);
+  function render(){
+    const r=calculate(),dash="—";
+    $("totalEstimate").textContent=r?ttd(r.total):"TT$0.00";$("totalEstimate").classList.toggle("empty",!r);
+    $("readyLed").classList.toggle("on",!!r);
+    $("payOnline").textContent=r?ttd(r.payOnline):dash;$("payJetpak").textContent=r?ttd(r.payJetpak):dash;
+    $("profit").textContent=r?ttd(r.profit)+" · "+(r.roi===null?"—":r.roi.toFixed(1)+"%"):dash;
+    $("roiPerDollar").textContent=r&&r.rpd!==null?"Every TT$1 invested returns TT$"+r.rpd.toFixed(2)+" (incl. the TT$1)":"Enter cost and weight to see return per TT$1.";
+    ["freight","handling","service","duty","vat","opt"].forEach(k=>$(k+"Value").textContent=r?feeText(r[k]):dash);
+    $("feesMeta").textContent=r?feeText(r.packageTotal):"";
+    $("dutyRateLabel").textContent=state.dutyRate+"%";
+    $("dutyRow").classList.toggle("off",!state.includeDuty);$("vatRow").classList.toggle("off",!state.includeVat);$("optRow").classList.toggle("off",!state.includeOpt);
+    $$("[data-tax]").forEach(b=>b.setAttribute("aria-pressed",String(!!state[b.dataset.tax])));
+    $$("[data-duty]").forEach(b=>{b.classList.toggle("on",state.includeDuty&&Number(b.dataset.duty)===Number(state.dutyRate));b.classList.toggle("off",!state.includeDuty)});
+    $$("[data-rate]").forEach(b=>b.classList.toggle("on",Number(b.dataset.rate)===Number(state.streetRate)));
+    $("wUnitBtn").innerHTML=state.weightUnit.toUpperCase()+"<span>⇄ "+(state.weightUnit==="lbs"?"KG":"LBS")+"</span>";
+    $("cUnitBtn").innerHTML=state.costUnit+"<span>⇄ "+(state.costUnit==="USD"?"GBP":"USD")+"</span>";
+    $$(".delivery").forEach(b=>b.classList.toggle("on",String(b.dataset.days)===String(state.deliveryMode)));
+    document.querySelector(".ctxt").textContent=state.deliveryMode==="custom"?"days":"Custom";
+    $("limitedDeal").setAttribute("aria-pressed",String(state.limitedDeal));
+    $("dealHint").textContent=state.limitedDeal?"deal note added to quote":"";
+    $("ttdBtn").classList.toggle("on",state.currencyView==="TTD");$("usdBtn").classList.toggle("on",state.currencyView==="USD");
+    $("copyBtn").classList.toggle("dim",!r);$("copyBtn").setAttribute("aria-disabled",String(!r));
+    $("preview").textContent=r?quoteText():"Enter weight and online cost to build the quote.";
+    $("currencySymbol").textContent=state.costUnit==="GBP"?"£":"$";
+    savePrefs();
   }
+  function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove("show"),1400)}
+  function fallbackCopy(text){const a=document.createElement("textarea");a.value=text;a.style.position="fixed";a.style.opacity="0";document.body.appendChild(a);a.select();try{document.execCommand("copy");toast("Quote copied")}catch(e){toast("Copy failed")}a.remove()}
   function copy(){
-    const text=quoteText();
-    if(!text){toast("Enter weight and online cost first");return;}
-    // Copy immediately from the keyboard-visible dock, then dismiss the keyboard.
-    const active=document.activeElement;
-    if(active && active.matches("input,select")) active.blur();
-    if(window.AndroidBridge&&AndroidBridge.copyText){AndroidBridge.copyText(text);toast("Quote copied");return;}
-    if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(()=>toast("Quote copied")).catch(()=>fallbackCopy(text));
-    else fallbackCopy(text);
-  }
-  function fallbackCopy(text){
-    const a=document.createElement("textarea");a.value=text;a.style.position="fixed";a.style.opacity="0";
-    document.body.appendChild(a);a.select();try{document.execCommand("copy");toast("Quote copied")}catch(e){toast("Copy failed")}a.remove();
+    const text=quoteText();if(!text){toast("Enter weight and online cost first");return}
+    const a=document.activeElement;if(a&&a.matches("input"))a.blur();
+    if(window.AndroidBridge&&AndroidBridge.copyText){AndroidBridge.copyText(text);return}
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text).then(()=>toast("Quote copied")).catch(()=>fallbackCopy(text));else fallbackCopy(text);
   }
 
   loadPrefs();
-  $("weightUnit").value=state.weightUnit;$("costUnit").value=state.costUnit;$("streetRate").value=String(state.streetRate);
-  $("currencySymbol").textContent=state.costUnit==="GBP"?"£":"$";
-  $("includeDuty").checked=state.includeDuty;$("includeVat").checked=state.includeVat;$("includeOpt").checked=state.includeOpt;
-
-  $("weight").addEventListener("input",e=>{
-    const v=num(e.target.value);state.weightLbs=v===null?null:(state.weightUnit==="kg"?v*2.20462:v);render();
-  });
-  $("weight").addEventListener("focus",e=>e.target.select());
-  $("weightUnit").addEventListener("change",e=>{
-    if(state.weightLbs!==null){
-      const display=e.target.value==="kg"?state.weightLbs/2.20462:state.weightLbs;
-      $("weight").value=parseFloat(display.toFixed(2));
-    }
-    state.weightUnit=e.target.value;render();
-  });
-  $("onlineCost").addEventListener("input",e=>{
-    const v=num(e.target.value);state.valueUSD=v===null?null:(state.costUnit==="GBP"?v*GBP_TO_USD:v);render();
-  });
-  $("onlineCost").addEventListener("focus",e=>e.target.select());
-  $("costUnit").addEventListener("change",e=>{
-    state.costUnit=e.target.value;$("currencySymbol").textContent=state.costUnit==="GBP"?"£":"$";
-    if(state.valueUSD!==null){
-      const display=state.costUnit==="GBP"?state.valueUSD/GBP_TO_USD:state.valueUSD;
-      $("onlineCost").value=display.toFixed(2);
-    }
-    render();
-  });
-  $("streetRate").addEventListener("change",e=>{state.streetRate=Number(e.target.value);render()});
-  document.querySelectorAll(".delivery").forEach(b=>b.addEventListener("click",()=>{
-    state.deliveryMode=String(b.dataset.days);
-    if(state.deliveryMode!=="custom") $("customDays").value="";
-    state.customDays=null;render();
-  }));
-  $("customDays").addEventListener("input",e=>{
-    state.customDays=num(e.target.value);state.deliveryMode="custom";render();
-  });
-  $("customDays").addEventListener("focus",()=>{state.deliveryMode="custom";render()});
-  $("limitedDeal").addEventListener("change",e=>{state.limitedDeal=e.target.checked;render()});
-  $("includeDuty").addEventListener("change",e=>{state.includeDuty=e.target.checked;render()});
-  $("includeVat").addEventListener("change",e=>{state.includeVat=e.target.checked;render()});
-  $("includeOpt").addEventListener("change",e=>{state.includeOpt=e.target.checked;render()});
-  document.querySelectorAll("[data-duty]").forEach(b=>b.addEventListener("click",()=>{state.dutyRate=Number(b.dataset.duty);render()}));
+  $("weight").addEventListener("input",e=>{const v=num(e.target.value);state.weightLbs=v===null?null:(state.weightUnit==="kg"?v*2.20462:v);render()});
+  $("onlineCost").addEventListener("input",e=>{const v=num(e.target.value);state.valueUSD=v===null?null:(state.costUnit==="GBP"?v*GBP_TO_USD:v);render()});
+  ["weight","onlineCost"].forEach(id=>$(id).addEventListener("focus",e=>e.target.select()));
+  $("wUnitBtn").addEventListener("click",()=>{
+    const u=state.weightUnit==="lbs"?"kg":"lbs";
+    if(state.weightLbs!==null)$("weight").value=parseFloat((u==="kg"?state.weightLbs/2.20462:state.weightLbs).toFixed(2));
+    state.weightUnit=u;render()});
+  $("cUnitBtn").addEventListener("click",()=>{
+    state.costUnit=state.costUnit==="USD"?"GBP":"USD";
+    if(state.valueUSD!==null)$("onlineCost").value=(state.costUnit==="GBP"?state.valueUSD/GBP_TO_USD:state.valueUSD).toFixed(2);render()});
+  $$("[data-rate]").forEach(b=>b.addEventListener("click",()=>{state.streetRate=Number(b.dataset.rate);render()}));
+  $$("[data-tax]").forEach(b=>b.addEventListener("click",()=>{state[b.dataset.tax]=!state[b.dataset.tax];render()}));
+  $$("[data-duty]").forEach(b=>b.addEventListener("click",()=>{state.dutyRate=Number(b.dataset.duty);state.includeDuty=true;render()}));
+  $$(".delivery").forEach(b=>b.addEventListener("click",e=>{
+    if(e.target.id==="customDays")return;
+    const m=String(b.dataset.days);
+    if(m!=="custom"){$("customDays").value="";state.customDays=null;}
+    state.deliveryMode=m;render();
+    if(m==="custom")setTimeout(()=>$("customDays").focus(),0)}));
+  $("customDays").addEventListener("input",e=>{state.customDays=num(e.target.value);state.deliveryMode="custom";render()});
+  $("limitedDeal").addEventListener("click",()=>{state.limitedDeal=!state.limitedDeal;render()});
   $("ttdBtn").addEventListener("click",()=>{state.currencyView="TTD";render()});
   $("usdBtn").addEventListener("click",()=>{state.currencyView="USD";render()});
-  // On Android 15+ the WebView layout may be larger than the visible viewport.
-  // Track the occluded area only when necessary; when adjustResize already shrinks
-  // the window this value is zero, so the dock is not shifted twice.
-  function alignCopyWithKeyboard(){
-    const vp=window.visualViewport;
-    if(!vp) return;
-    const covered=Math.max(0,window.innerHeight-(vp.height+vp.offsetTop));
-    document.documentElement.style.setProperty("--keyboard-gap",Math.ceil(covered)+"px");
-  }
-  if(window.visualViewport){
-    window.visualViewport.addEventListener("resize",alignCopyWithKeyboard);
-    window.visualViewport.addEventListener("scroll",alignCopyWithKeyboard);
-  }
-  window.addEventListener("resize",alignCopyWithKeyboard);
-  alignCopyWithKeyboard();
+  function alignDock(){const vp=window.visualViewport;if(!vp)return;document.documentElement.style.setProperty("--keyboard-gap",Math.ceil(Math.max(0,window.innerHeight-(vp.height+vp.offsetTop)))+"px")}
+  if(window.visualViewport){visualViewport.addEventListener("resize",alignDock);visualViewport.addEventListener("scroll",alignDock)}
+  window.addEventListener("resize",alignDock);alignDock();
   $("copyBtn").addEventListener("click",copy);
   $("resetBtn").addEventListener("click",()=>{
-    state.weightLbs=null;state.valueUSD=null;state.deliveryMode="3";state.customDays=null;state.limitedDeal=false;
-    $("weight").value="";$("onlineCost").value="";$("customDays").value="";$("limitedDeal").checked=false;
-    render();toast("Quote cleared");
-  });
+    Object.assign(state,{weightLbs:null,valueUSD:null,deliveryMode:"3",customDays:null,limitedDeal:false});
+    $("weight").value="";$("onlineCost").value="";$("customDays").value="";render();toast("Quote cleared")});
   render();
+
+
+  function syncBars(){
+    try{
+      if(!(window.AndroidBridge&&AndroidBridge.setSystemBars))return;
+      const c=(getComputedStyle(document.documentElement).getPropertyValue("--chrome")||"").trim();
+      if(!/^#[0-9a-f]{6}$/i.test(c))return;
+      const v=[1,3,5].map(i=>parseInt(c.substr(i,2),16)/255).map(x=>x<=.03928?x/12.92:Math.pow((x+.055)/1.055,2.4));
+      const L=.2126*v[0]+.7152*v[1]+.0722*v[2];
+      const shade=(U&&U.shade)||0;
+      AndroidBridge.setSystemBars(c,(L>.4)&&shade<35);
+    }catch(e){}
+  }
+  // ---------- THEMES ----------
+  const FAMILY=["original","sky","rose","mint","peach","graphite","royal"];
+  const PRO=["ctp-latte", "ctp-mocha", "nord-light", "nord", "dracula", "rp-dawn", "rp", "tokyo", "sol-light", "gruvbox", "m3", "ios"];
+  const PRO_SRC={"ctp-latte": "Catppuccin", "ctp-mocha": "Catppuccin", "nord-light": "Nord", "nord": "Nord", "dracula": "Dracula", "rp-dawn": "Ros\u00e9 Pine", "rp": "Ros\u00e9 Pine", "tokyo": "Tokyo Night", "sol-light": "Solarized", "gruvbox": "Gruvbox", "m3": "Material Design 3", "ios": "Apple HIG"};
+  const THEMES=[["ctp-latte","Catppuccin Latte"],["ctp-mocha","Catppuccin Mocha"],["nord-light","Nord Snow Storm"],["nord","Nord Polar Night"],["dracula","Dracula"],["rp-dawn","Rosé Pine Dawn"],["rp","Rosé Pine"],["tokyo","Tokyo Night"],["sol-light","Solarized Light"],["gruvbox","Gruvbox Dark"],["m3","Material 3"],["ios","iOS System"],["original","Original"],["sky","Sky Breeze"],["rose","Rose Quartz"],["mint","Mint Fresh"],["peach","Peach Glow"],["graphite","Graphite Pro"],["royal","Royal Night"],["neon","Midnight Neon"],["bubblegum","Bubblegum Pop"],["mango","Mango Sunrise"],["ocean","Ocean Splash"],["lime","Lime Pop"],
+    ["grape","Grape Soda"],["carnival","Carnival Fete"],["cotton","Cotton Candy"],["arcade","Arcade Glow"],["sunset","Sunset Vibes"]];
+  const THEME_KEY="byso_theme_v2";
+  function applyTheme(id){
+    if(!THEMES.some(t=>t[0]===id))id="original";
+    document.documentElement.dataset.theme=id;
+    const meta=document.querySelector('meta[name="theme-color"]');
+    if(meta)meta.content=getComputedStyle(document.documentElement).getPropertyValue("--chrome").trim()||"#0e1526";
+    $$(".sw").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.theme===id)));
+    const n=THEMES.find(t=>t[0]===id)[1];$("themeNow").textContent="Now using: "+n;
+    try{localStorage.setItem(THEME_KEY,id)}catch(e){}
+    syncBars();
+  }
+  const swHTML=([id,name])=>
+    '<button class="sw" type="button" data-theme="'+id+'" aria-label="'+name+' theme"><div class="mini"><div class="mdisp"><span>TT$730.00</span></div>'+
+    '<div class="mkeys"><i></i><i></i><i></i></div></div><span class="mled"></span><div class="mname"><span>'+name+(PRO_SRC[id]?'<span class="msrc">'+PRO_SRC[id]+'</span>':'')+'</span><span class="tick">✓</span></div></button>';
+  $("swatchesP").innerHTML=THEMES.filter(t=>PRO.includes(t[0])).map(swHTML).join("");
+  $("swatchesA").innerHTML=THEMES.filter(t=>FAMILY.includes(t[0])).map(swHTML).join("");
+  $("swatchesB").innerHTML=THEMES.filter(t=>!FAMILY.includes(t[0])&&!PRO.includes(t[0])).map(swHTML).join("");
+  $$(".sw").forEach(b=>b.addEventListener("click",()=>applyTheme(b.dataset.theme)));
+  const openSheet=o=>{$("themeSheet").classList.toggle("open",o);$("scrim").classList.toggle("open",o);if(!o)document.body.classList.remove("sheet-custom");else if($("themeSheet").classList.contains("custom-mode"))document.body.classList.add("sheet-custom")};
+  $("themeBtn").addEventListener("click",()=>openSheet(true));
+  $("themeDone").addEventListener("click",()=>openSheet(false));
+  $("scrim").addEventListener("click",()=>openSheet(false));
+  document.addEventListener("keydown",e=>{if(e.key==="Escape")openSheet(false)});
+  $("shuffleBtn").addEventListener("click",()=>{const cur=document.documentElement.dataset.theme;const pool=THEMES.filter(t=>t[0]!==cur);applyTheme(pool[Math.floor(Math.random()*pool.length)][0])});
+
+  // ---------- CUSTOMISE ----------
+  const TCOLS=[["","Theme"],["#000000","Black"],["#0b1f4b","Navy"],["#334155","Charcoal"],["#ffffff","White"],["#1d4ed8","Blue"],
+    ["#6d28d9","Purple"],["#be185d","Magenta"],["#0f766e","Teal"],["#15803d","Green"],["#7c2d12","Brown"],["#b45309","Gold"],["#fde047","Yellow"],["#a5f3fc","Ice"]];
+  $("chips").innerHTML=TCOLS.map(([c,n])=>'<button class="chip" type="button" data-c="'+c+'" aria-label="'+n+' text" title="'+n+'"'+(c?' style="background:'+c+'"':'')+'></button>').join("");
+  $$("#chips .chip").forEach(c=>c.addEventListener("click",()=>{U.tcol=c.dataset.c;applyCustom()}));
+  [["uDk","dk"],["uFs","fs"]].forEach(([id,k])=>$(id).addEventListener("input",e=>{U[k]=Number(e.target.value);applyCustom()}));
+  const chipRow=c=>TCOLS.map(([v,n])=>'<button class="chip" type="button" data-c="'+v+'" aria-label="'+n+'" title="'+n+'"'+(v?' style="background:'+v+'"':'')+'></button>').join("");
+  $("kchips").innerHTML=chipRow();$("bchips").innerHTML=chipRow();
+  $$("#kchips .chip").forEach(c=>c.addEventListener("click",()=>{U.kcol=c.dataset.c;applyCustom()}));
+  $$("#bchips .chip").forEach(c=>c.addEventListener("click",()=>{U.btxt=c.dataset.c;applyCustom()}));
+  [["uKdk","kdk"],["uOff","offop"]].forEach(([id,k])=>$(id).addEventListener("input",e=>{U[k]=Number(e.target.value);applyCustom()}));
+  const CUSTOM_KEY="byso_custom_v1", DEF={shade:0,sat:100,hue:0,glass:62,bright:100,tcol:"",dk:0,fs:100,cards:{},kcol:"",kdk:0,btxt:"",offop:45};
+  let U=Object.assign({},DEF);try{Object.assign(U,JSON.parse(localStorage.getItem(CUSTOM_KEY)||"{}"))}catch(e){}
+  function applyCustom(){
+    const r=document.documentElement.style;
+    r.setProperty("--u-shade",U.shade>0?"rgba(0,0,0,"+(U.shade/100)+")":U.shade<0?"rgba(255,255,255,"+(-U.shade/100)+")":"transparent");
+    r.setProperty("--u-sat",U.sat/100);r.setProperty("--u-hue",U.hue+"deg");r.setProperty("--u-glass",U.glass+"%");r.setProperty("--u-bright",U.bright/100);
+    $("uShade").value=U.shade;$("uSat").value=U.sat;$("uHue").value=U.hue;$("uGlass").value=U.glass;$("uBright").value=U.bright;
+    $("oShade").textContent=U.shade===0?"Normal":(U.shade>0?"Darker "+U.shade+"%":"Lighter "+(-U.shade)+"%");
+    $("oSat").textContent=U.sat+"%";$("oHue").textContent=(U.hue>0?"+":"")+U.hue+"°";$("oGlass").textContent=U.glass+"%";$("oBright").textContent=U.bright+"%";
+    r.setProperty("--u-tcol",U.tcol||"#808080");r.setProperty("--u-tamt",U.tcol?"100%":"0%");
+    r.setProperty("--u-dkc",U.dk<0?"#fff":"#000");r.setProperty("--u-dk",Math.abs(U.dk)+"%");r.setProperty("--u-fs",U.fs/100);
+    $("uDk").value=U.dk;$("uFs").value=U.fs;
+    $("oDk").textContent=U.dk===0?"Normal":(U.dk>0?"Darker "+U.dk+"%":"Lighter "+(-U.dk)+"%");$("oFs").textContent=U.fs+"%";
+    const tc=TCOLS.find(c=>c[0]===U.tcol);$("oTcol").textContent=tc?tc[1]:"Custom";
+    $$("#chips .chip").forEach(c=>c.setAttribute("aria-pressed",String(c.dataset.c===U.tcol)));
+    r.setProperty("--u-kcol",U.kcol||"#808080");r.setProperty("--u-kamt",U.kcol?"100%":"0%");
+    r.setProperty("--u-kdkc",U.kdk<0?"#fff":"#000");r.setProperty("--u-kdk",Math.abs(U.kdk)+"%");
+    if(U.btxt)r.setProperty("--u-btxt",U.btxt);else r.removeProperty("--u-btxt");
+    r.setProperty("--u-offop",U.offop/100);
+    $("uKdk").value=U.kdk;$("uOff").value=U.offop;
+    $("oKdk").textContent=U.kdk===0?"Normal":(U.kdk>0?"Darker "+U.kdk+"%":"Lighter "+(-U.kdk)+"%");$("oOff").textContent=U.offop+"%";
+    const nm=c=>{const t=TCOLS.find(x=>x[0]===c);return t?t[1]:"Custom"};
+    $("oKcol").textContent=nm(U.kcol);$("oBcol").textContent=nm(U.btxt);
+    $$("#kchips .chip").forEach(c=>c.setAttribute("aria-pressed",String(c.dataset.c===U.kcol)));
+    $$("#bchips .chip").forEach(c=>c.setAttribute("aria-pressed",String(c.dataset.c===U.btxt)));
+    if(typeof paintCards==="function")paintCards();
+    try{localStorage.setItem(CUSTOM_KEY,JSON.stringify(U))}catch(e){}
+    if(typeof syncBars==="function")syncBars();
+  }
+  [["uShade","shade"],["uSat","sat"],["uHue","hue"],["uGlass","glass"],["uBright","bright"]].forEach(([id,k])=>$(id).addEventListener("input",e=>{U[k]=Number(e.target.value);applyCustom()}));
+  $("uReset").addEventListener("click",()=>{U=Object.assign({},DEF,{cards:{}});applyCustom();toast("Sliders reset")});
+  $("uDoneC").addEventListener("click",()=>openSheet(false));
+  function setTab(custom){
+    $("tabThemes").classList.toggle("on",!custom);$("tabCustom").classList.toggle("on",custom);
+    $("tabThemes").setAttribute("aria-selected",String(!custom));$("tabCustom").setAttribute("aria-selected",String(custom));
+    $("paneThemes").hidden=custom;$("paneCustom").hidden=!custom;
+    $("themeSheet").classList.toggle("custom-mode",custom);document.body.classList.toggle("sheet-custom",custom);$("scrim").classList.toggle("light",custom);
+    document.querySelector(".sheet .done").hidden=custom;
+  }
+  $("tabThemes").addEventListener("click",()=>setTab(false));
+  $("tabCustom").addEventListener("click",()=>setTab(true));
+
+  // ---------- PER-CARD COLOURS ----------
+  const trays=[...document.querySelectorAll(".app > .tray")];
+  const SECS=[["price","Price",()=>[$("paymentSummary")]],["inputs","Weight & cost",()=>[trays[0]]],["rate","Rate",()=>[trays[1]]],
+    ["taxes","Taxes",()=>[trays[2]]],["delivery","Delivery",()=>[trays[3]]],["more","More",()=>[...$$("details.drawer")]],["dock","Copy bar",()=>[document.querySelector(".dock")]]];
+  const SOFT=[["#dbeafe","Sky"],["#ede9fe","Lavender"],["#fce7f3","Pink"],["#ffedd5","Peach"],["#fef9c3","Lemon"],["#dcfce7","Mint"],["#cffafe","Aqua"],["#f1f5f9","Cloud"],["#ffffff","White"]];
+  const BOLD=[["#2563eb","Blue"],["#4f46e5","Indigo"],["#7c3aed","Purple"],["#c026d3","Magenta"],["#dc2626","Red"],["#ea580c","Orange"],["#16a34a","Green"],["#0d9488","Teal"],["#334155","Slate"],["#111827","Black"]];
+  let curSec="price";
+  const hx=h=>{h=h.replace("#","");return [0,2,4].map(i=>parseInt(h.substr(i,2),16))};
+  const toHex=a=>"#"+a.map(v=>Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,"0")).join("");
+  const mixc=(h,t,k)=>toHex(hx(h).map((v,i)=>v+(hx(t)[i]-v)*k));
+  const lum=h=>{const [r,g,b]=hx(h).map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)});return .2126*r+.7152*g+.0722*b};
+  const PROPS=["--led","--tray","--disp","--bez1","--bez2","--d1","--d2","--dock","--Ttxt","--Tsub","--Tdim","--t1","--t2","--dsub","--well","color"];
+  function paintCards(){
+    SECS.forEach(([id,,get])=>get().forEach(el=>{
+      PROPS.forEach(p=>el.style.removeProperty(p));
+      const c=(U.cards||{})[id]; if(!c)return;
+      const chrome=(getComputedStyle(document.documentElement).getPropertyValue("--chrome").trim()||"#ffffff");
+      const g=Math.min(100,(U.glass||62)+(id==="more"||id==="dock"?8:0))/100;
+      const eff=(id==="price")?mixc(c,"#000000",.2):mixc(c,/^#[0-9a-f]{6}$/i.test(chrome)?chrome:"#ffffff",1-g);
+      const L=lum(eff), cDark=(L+.05)/(.013+.05), cLight=1.05/(L+.05);
+      const light=cDark>=cLight, T=light?["#101d38","#3f4d68","#6b7a95"]:["#ffffff","#e6ebf8","#c3cde6"];
+      if(id==="price"){
+        el.style.setProperty("--disp","radial-gradient(110% 90% at 90% -10%,rgba(255,255,255,.18),transparent 60%),linear-gradient(118deg,"+mixc(c,"#ffffff",.12)+","+mixc(c,"#000000",.28)+")");
+        el.style.setProperty("--bez1",mixc(c,"#ffffff",.18));el.style.setProperty("--bez2",mixc(c,"#000000",.35));
+        if(light){el.style.setProperty("--t1","#101d38");el.style.setProperty("--t2","#31405e");el.style.setProperty("--dsub","#4a5a78");el.style.setProperty("--led","#0b8a47");el.querySelector(".display").style.color="#101d38";}
+        else el.querySelector(".display").style.removeProperty("color");
+        return;
+      }
+      if(id==="more"){el.style.setProperty("--d1",c);el.style.setProperty("--d2",mixc(c,"#000000",.06));}
+      else if(id==="dock"){el.style.setProperty("--dock",c);}
+      else{el.style.setProperty("--tray",c);}
+      el.style.setProperty("--Ttxt",T[0]);el.style.setProperty("--Tsub",T[1]);el.style.setProperty("--Tdim",T[2]);el.style.color=T[0];
+    }));
+    if(!(U.cards||{}).price){const d=document.querySelector(".display");d&&d.style.removeProperty("color")}
+    const cur=(U.cards||{})[curSec]||"";
+    $$("#cardSoft .chip,#cardBold .chip").forEach(ch=>ch.setAttribute("aria-pressed",String(ch.dataset.c===cur)));
+    $("oCard").textContent=SECS.find(s=>s[0]===curSec)[1]+(cur?" · "+((SOFT.concat(BOLD).find(x=>x[0]===cur)||[0,"custom"])[1]):" · theme");
+  }
+  $("secs").innerHTML=SECS.map(([id,n])=>'<button class="key'+(id===curSec?" on":"")+'" type="button" data-sec="'+id+'">'+n+'</button>').join("");
+  const chipH=([c,n])=>'<button class="chip" type="button" data-c="'+c+'" title="'+n+'" aria-label="'+n+'" style="background:'+c+'"></button>';
+  $("cardSoft").innerHTML=SOFT.map(chipH).join("");
+  $("cardBold").innerHTML=BOLD.map(chipH).join("")+'<label class="chip any" title="Any colour" aria-label="Pick any colour"><input type="color" id="cardAny" value="#2563eb"></label>';
+  function flash(){SECS.find(s=>s[0]===curSec)[2]().forEach(el=>{el.classList.add("sec-flash");
+    const r=el.getBoundingClientRect();if(r.top<0||r.bottom>window.innerHeight*0.45)window.scrollBy({top:r.top-70,behavior:"smooth"});
+    setTimeout(()=>el.classList.remove("sec-flash"),900)})}
+  $$("#secs .key").forEach(b=>b.addEventListener("click",()=>{curSec=b.dataset.sec;$$("#secs .key").forEach(x=>x.classList.toggle("on",x===b));paintCards();flash()}));
+  const setCard=c=>{U.cards=Object.assign({},U.cards||{},{[curSec]:c});applyCustom()};
+  $$("#cardSoft .chip,#cardBold .chip").forEach(ch=>ch.addEventListener("click",()=>setCard(ch.dataset.c)));
+  $("cardAny").addEventListener("input",e=>setCard(e.target.value));
+  $("cardClear").addEventListener("click",()=>{const c=Object.assign({},U.cards||{});delete c[curSec];U.cards=c;applyCustom()});
+  $("cardClearAll").addEventListener("click",()=>{U.cards={};applyCustom();toast("Cards back to theme")});
+  applyCustom();
+
+  // ---------- RESET EVERYTHING ----------
+  let armT=null;
+  ["resetAll1","resetAll2"].forEach(id=>$(id).addEventListener("click",e=>{
+    const btn=e.currentTarget;
+    if(!btn.classList.contains("armed")){
+      $$(".resetall").forEach(x=>{x.classList.add("armed");x.textContent="Tap again to reset theme, colours & text"});
+      clearTimeout(armT);armT=setTimeout(()=>$$(".resetall").forEach(x=>{x.classList.remove("armed");x.textContent="↺ Reset everything to normal"}),4000);
+      return;
+    }
+    clearTimeout(armT);
+    U=Object.assign({},DEF,{cards:{}});applyCustom();applyTheme("original");
+    $$(".resetall").forEach(x=>{x.classList.remove("armed");x.textContent="↺ Reset everything to normal"});
+    toast("Everything back to normal");
+  }));
+  let saved="original";try{saved=localStorage.getItem(THEME_KEY)||"original"}catch(e){}
+  applyTheme(saved);
 })();
 </script>
 <script src="usage-tracker.js"></script>
